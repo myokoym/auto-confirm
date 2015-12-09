@@ -1,11 +1,11 @@
-PACKAGE_NAME = restartless
+PACKAGE_NAME = auto-confirm
 
 all: xpi
 
-xpi: buildscript/makexpi.sh
-	cp buildscript/makexpi.sh ./
+xpi: makexpi/makexpi.sh
+	cp makexpi/makexpi.sh ./
 	./makexpi.sh -n $(PACKAGE_NAME) -o
 	rm ./makexpi.sh
 
-buildscript/makexpi.sh:
+makexpi/makexpi.sh:
 	git submodule update --init
