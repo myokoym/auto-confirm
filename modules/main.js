@@ -9,28 +9,42 @@
  * @url http://github.com/piroor/restartless
  */
 
+var BASE = 'extensions.auto-confirm@myokoym.net.';
+var prefs = require('lib/prefs').prefs;
+
+function log(message) {
+  if (prefs.getPref(BASE + 'debug')) {
+    console.log("auto-confirm: " + message);
+  }
+}
+
 /**
  * load() works like Components.utils.import(). EXPORTED_SYMBOLS
  * in loaded scripts are exported to the global object of this script.
  */
 load('lib/WindowManager');
-load('lib/prefs');
 
 /**
  * Sample code for addons around browser windows.
  */
 const TYPE_BROWSER = 'navigator:browser';
-
 var global = this;
 function handleWindow(aWindow)
 {
-	var doc = aWindow.document;
-	if (doc.documentElement.getAttribute('windowtype') != TYPE_BROWSER)
-		return;
+  log("handleWindow");
+  var doc = aWindow.document;
+  if (doc.documentElement.localName === 'dialog' &&
+      doc.documentElement.id === 'commonDialog') {
+    log("commonDialog");
+    aWindow.setTimeout(function() {
+      log("cancelDialog");
+      doc.documentElement.cancelDialog();
+    }, 10000);
+    return;
+  }
 
 }
 
-WindowManager.getWindows(TYPE_BROWSER).forEach(handleWindow);
 WindowManager.addHandler(handleWindow);
 
 /**
