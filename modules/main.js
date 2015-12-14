@@ -41,6 +41,6 @@ WindowManager.addHandler(handleWindow);
 
 function shutdown()
 {
-	WindowManager = undefined;
-	global = undefined;
+  WindowManager = undefined;
+  global = undefined;
 }
