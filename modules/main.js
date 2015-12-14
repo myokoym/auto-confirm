@@ -6,6 +6,19 @@
 
 var BASE = 'extensions.auto-confirm@myokoym.net.';
 var prefs = require('lib/prefs').prefs;
+{
+  if (prefs.getDefaultPref(BASE + 'debug') === null)
+    prefs.setDefaultPref(BASE + 'debug', false);
+  // For development
+  if (prefs.getPref(BASE + 'debug')) {
+    prefs.setDefaultPref(BASE + 'common.debug0.action', 'cancel');
+    prefs.setDefaultPref(BASE + 'common.debug0.text', 'auto-confirm');
+    prefs.setDefaultPref(BASE + 'common.debug0.type', 'confirm');
+    prefs.setDefaultPref(BASE + 'common.debug1.action', 'accept');
+    prefs.setDefaultPref(BASE + 'common.debug1.text', 'auto-ok');
+    prefs.setDefaultPref(BASE + 'common.debug1.type', 'confirm');
+  }
+}
 
 function log(message) {
   if (prefs.getPref(BASE + 'debug')) {
