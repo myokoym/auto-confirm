@@ -11,12 +11,12 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'debug', false);
   // For development
   if (prefs.getPref(BASE + 'debug')) {
-    prefs.setDefaultPref(BASE + 'common.debug0.action', 'cancel');
-    prefs.setDefaultPref(BASE + 'common.debug0.text', 'auto-confirm');
-    prefs.setDefaultPref(BASE + 'common.debug0.type', 'confirm');
-    prefs.setDefaultPref(BASE + 'common.debug1.action', 'accept');
-    prefs.setDefaultPref(BASE + 'common.debug1.text', 'auto-ok');
-    prefs.setDefaultPref(BASE + 'common.debug1.type', 'confirm');
+    prefs.setDefaultPref(BASE + 'common.debug-confirm-cancel.action', 'cancel');
+    prefs.setDefaultPref(BASE + 'common.debug-confirm-cancel.text', 'auto-confirm');
+    prefs.setDefaultPref(BASE + 'common.debug-confirm-cancel.type', 'confirm');
+    prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.action', 'accept');
+    prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.text', 'auto-ok');
+    prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.type', 'confirm');
   }
 }
 
