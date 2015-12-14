@@ -30,11 +30,40 @@ function handleWindow(aWindow)
 
 function handleCommonDialog(aWindow)
 {
-  log("commonDialog");
-  aWindow.setTimeout(function() {
-    log("cancelDialog");
-    doc.documentElement.cancelDialog();
-  }, 10000);
+  var doc = aWindow.document;
+  var args = aWindow.args;
+  log("args: " + JSON.stringify(args));
+  var configs = prefs.getChildren(BASE + 'common');
+  log("commonDialog: " + configs);
+  for (let config of configs) {
+    let typeMatcher = prefs.getPref(config + '.type');
+    if (typeMatcher !== args.promptType)
+      continue;
+    let textMatcher = prefs.getPref(config + '.text');
+    if (textMatcher && !args.text.match(textMatcher))
+      continue;
+    let titleMatcher = prefs.getPref(config + '.title');
+    if (titleMatcher && !args.title.match(titleMatcher))
+      continue;
+
+    log("config: " + config);
+    let action = prefs.getPref(config + '.action');
+    log("action: " + action);
+    switch (action) {
+    case 'accept':
+      doc.documentElement.acceptDialog();
+      log("accept");
+      return;
+    case 'cancel':
+      doc.documentElement.cancelDialog();
+      log("cancel");
+      return;
+    default:
+      log("no action");
+      return;
+    }
+  }
+  log("no match");
 }
 
 WindowManager.addHandler(handleWindow);
