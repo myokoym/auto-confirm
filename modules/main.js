@@ -17,6 +17,9 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.action', 'accept');
     prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.text', 'auto-ok');
     prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.type', 'confirm');
+    prefs.setDefaultPref(BASE + 'common.debug-prompt.actions', '["input;auto-confirm","accept"]');
+    prefs.setDefaultPref(BASE + 'common.debug-prompt.text', 'auto-input');
+    prefs.setDefaultPref(BASE + 'common.debug-prompt.type', 'prompt');
   }
 }
 
@@ -64,9 +67,21 @@ function handleCommonDialog(aWindow)
     log("config: " + config);
     let action = prefs.getPref(config + '.action');
     processAction(aWindow, action);
+    let actions = prefs.getPref(config + '.actions');
+    processActions(aWindow, actions);
   }
   if (!matched)
     log("no match");
+}
+
+function processActions(aWindow, aActions)
+{
+  var doc = aWindow.document;
+  log("actions: " + aActions);
+  for (let action of JSON.parse(aActions)) {
+    log("action: " + action);
+    processAction(aWindow, action);
+  }
 }
 
 function processAction(aWindow, aAction)
