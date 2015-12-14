@@ -43,11 +43,11 @@ function handleWindow(aWindow)
 
 function handleCommonDialog(aWindow)
 {
-    log("commonDialog");
-    aWindow.setTimeout(function() {
-      log("cancelDialog");
-      doc.documentElement.cancelDialog();
-    }, 10000);
+  log("commonDialog");
+  aWindow.setTimeout(function() {
+    log("cancelDialog");
+    doc.documentElement.cancelDialog();
+  }, 10000);
 }
 
 WindowManager.addHandler(handleWindow);
