@@ -26,6 +26,9 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'common.debug-check.actions', '["check","accept"]');
     prefs.setDefaultPref(BASE + 'common.debug-check.text', 'auto-check');
     prefs.setDefaultPref(BASE + 'common.debug-check.type', 'prompt');
+    prefs.setDefaultPref(BASE + 'common.debug-confirmEx.action', 'push;auto');
+    prefs.setDefaultPref(BASE + 'common.debug-confirmEx.text', 'auto-confirmEx');
+    prefs.setDefaultPref(BASE + 'common.debug-confirmEx.type', 'confirmEx');
   }
 }
 
@@ -109,6 +112,19 @@ function processAction(aWindow, aAction)
   case 'cancel':
     doc.documentElement.cancelDialog();
     log("cancel");
+    return;
+  case 'push':
+    var buttons = doc.documentElement._buttons;
+    for (let dlgtype in buttons) {
+      var button = buttons[dlgtype];
+      log("label: " + button.label);
+      if (button.label.match(value)) {
+        button.click();
+        log("push");
+        return;
+      }
+    }
+    log("push: no match");
     return;
   case 'input':
     doc.getElementById("loginTextbox").value = value;
