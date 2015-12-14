@@ -61,8 +61,16 @@ function handleCommonDialog(aWindow)
 
     log("config: " + config);
     let action = prefs.getPref(config + '.action');
-    log("action: " + action);
-    switch (action) {
+    processAction(aWindow, action);
+  }
+  log("no match");
+}
+
+function processAction(aWindow, aAction)
+{
+    var doc = aWindow.document;
+    log("action: " + aAction);
+    switch (aAction) {
     case 'accept':
       doc.documentElement.acceptDialog();
       log("accept");
@@ -75,8 +83,6 @@ function handleCommonDialog(aWindow)
       log("no action");
       return;
     }
-  }
-  log("no match");
 }
 
 WindowManager.addHandler(handleWindow);
