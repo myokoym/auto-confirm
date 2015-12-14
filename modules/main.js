@@ -66,9 +66,11 @@ function handleCommonDialog(aWindow)
     matched = true;
     log("config: " + config);
     let action = prefs.getPref(config + '.action');
-    processAction(aWindow, action);
+    if (action)
+      processAction(aWindow, action);
     let actions = prefs.getPref(config + '.actions');
-    processActions(aWindow, actions);
+    if (actions)
+      processActions(aWindow, actions);
   }
   if (!matched)
     log("no match");
