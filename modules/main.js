@@ -71,21 +71,21 @@ function handleCommonDialog(aWindow)
 
 function processAction(aWindow, aAction)
 {
-    var doc = aWindow.document;
-    log("action: " + aAction);
-    switch (aAction) {
-    case 'accept':
-      doc.documentElement.acceptDialog();
-      log("accept");
-      return;
-    case 'cancel':
-      doc.documentElement.cancelDialog();
-      log("cancel");
-      return;
-    default:
-      log("no action");
-      return;
-    }
+  var doc = aWindow.document;
+  log("action: " + aAction);
+  switch (aAction) {
+  case 'accept':
+    doc.documentElement.acceptDialog();
+    log("accept");
+    return;
+  case 'cancel':
+    doc.documentElement.cancelDialog();
+    log("cancel");
+    return;
+  default:
+    log("no action");
+    return;
+  }
 }
 
 WindowManager.addHandler(handleWindow);
