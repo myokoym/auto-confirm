@@ -35,14 +35,19 @@ function handleWindow(aWindow)
   var doc = aWindow.document;
   if (doc.documentElement.localName === 'dialog' &&
       doc.documentElement.id === 'commonDialog') {
+    handleCommonDialog(aWindow);
+    return;
+  }
+
+}
+
+function handleCommonDialog(aWindow)
+{
     log("commonDialog");
     aWindow.setTimeout(function() {
       log("cancelDialog");
       doc.documentElement.cancelDialog();
     }, 10000);
-    return;
-  }
-
 }
 
 WindowManager.addHandler(handleWindow);
