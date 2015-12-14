@@ -48,6 +48,7 @@ function handleCommonDialog(aWindow)
   log("args: " + JSON.stringify(args));
   var configs = prefs.getChildren(BASE + 'common');
   log("commonDialog: " + configs);
+  var matched = false;
   for (let config of configs) {
     let typeMatcher = prefs.getPref(config + '.type');
     if (typeMatcher !== args.promptType)
@@ -59,11 +60,13 @@ function handleCommonDialog(aWindow)
     if (titleMatcher && !args.title.match(titleMatcher))
       continue;
 
+    matched = true;
     log("config: " + config);
     let action = prefs.getPref(config + '.action');
     processAction(aWindow, action);
   }
-  log("no match");
+  if (!matched)
+    log("no match");
 }
 
 function processAction(aWindow, aAction)
