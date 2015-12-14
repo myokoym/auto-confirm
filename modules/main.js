@@ -20,6 +20,9 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'common.debug-prompt.actions', '["input;auto-confirm","accept"]');
     prefs.setDefaultPref(BASE + 'common.debug-prompt.text', 'auto-input');
     prefs.setDefaultPref(BASE + 'common.debug-prompt.type', 'prompt');
+    prefs.setDefaultPref(BASE + 'common.debug-alert.action', 'accept');
+    prefs.setDefaultPref(BASE + 'common.debug-alert.text', 'auto-alert');
+    prefs.setDefaultPref(BASE + 'common.debug-alert.type', 'alert');
   }
 }
 
