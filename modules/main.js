@@ -90,7 +90,12 @@ function processAction(aWindow, aAction)
 {
   var doc = aWindow.document;
   log("action: " + aAction);
-  switch (aAction) {
+  var actions = aAction.match(/^([^;]+);?(.*)/);
+  if (actions === null)
+    return;
+  var action = actions[1];
+  var value = actions[2];
+  switch (action) {
   case 'accept':
     doc.documentElement.acceptDialog();
     log("accept");
@@ -98,6 +103,10 @@ function processAction(aWindow, aAction)
   case 'cancel':
     doc.documentElement.cancelDialog();
     log("cancel");
+    return;
+  case 'input':
+    doc.getElementById("loginTextbox").value = value;
+    log("input");
     return;
   default:
     log("no action");
