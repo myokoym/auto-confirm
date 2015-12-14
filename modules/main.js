@@ -23,6 +23,9 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'common.debug-alert.action', 'accept');
     prefs.setDefaultPref(BASE + 'common.debug-alert.text', 'auto-alert');
     prefs.setDefaultPref(BASE + 'common.debug-alert.type', 'alert');
+    prefs.setDefaultPref(BASE + 'common.debug-check.actions', '["check","accept"]');
+    prefs.setDefaultPref(BASE + 'common.debug-check.text', 'auto-check');
+    prefs.setDefaultPref(BASE + 'common.debug-check.type', 'prompt');
   }
 }
 
@@ -110,6 +113,16 @@ function processAction(aWindow, aAction)
   case 'input':
     doc.getElementById("loginTextbox").value = value;
     log("input");
+    return;
+  case 'check':
+    doc.getElementById("checkbox").checked = true;
+    aWindow.args.checked = true;
+    log("check");
+    return;
+  case 'uncheck':
+    doc.getElementById("checkbox").checked = false;
+    aWindow.args.checked = false;
+    log("uncheck");
     return;
   default:
     log("no action");
