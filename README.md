@@ -4,9 +4,11 @@ Pushs any confirmation button automatically.
 
 ## Usage
 
-### Example
+## Examples
 
-#### Confirm dialog
+### Common dialog
+
+#### Confirm (cancel)
 
 |key|value|description|
 |---|-----|-----------|
@@ -14,18 +16,42 @@ Pushs any confirmation button automatically.
 |extensions.auto-confirm@myokoym.net.common.(identifier).text|`"auto-confirm"`|matches to dialog with text including "auto-confirm"|
 |extensions.auto-confirm@myokoym.net.common.(identifier).action|`"cancel"`|pushes the cancel button|
 
+#### Confirm (accept)
+
+|key|value|description|
+|---|-----|-----------|
+|extensions.auto-confirm@myokoym.net.common.(identifier).type|`"confirm"`|maches to dialogs shown by `window.confirm()`|
+|extensions.auto-confirm@myokoym.net.common.(identifier).text|`"foo"`|matches to dialog with text including "foo"|
+|extensions.auto-confirm@myokoym.net.common.(identifier).action|`"accept"`|pushes the accept button|
+
 #### Prompt
 
-TODO
+|key|value|description|
+|---|-----|-----------|
+|extensions.auto-confirm@myokoym.net.common.(identifier).type|`"prompt"`|maches to dialogs shown by `window.prompt()`|
+|extensions.auto-confirm@myokoym.net.common.(identifier).text|`"foo"`|matches to dialog with text including "foo"|
+|extensions.auto-confirm@myokoym.net.common.(identifier).actions|`["input;bar","accept"]"`|inputs "bar" to textbox and pushes the accept button|
 
 #### Alert
 
-TODO
+|key|value|description|
+|---|-----|-----------|
+|extensions.auto-confirm@myokoym.net.common.(identifier).type|`"alert"`|maches to dialogs shown by `window.alert()`|
+|extensions.auto-confirm@myokoym.net.common.(identifier).text|`"foo"`|matches to dialog with text including "foo"|
+|extensions.auto-confirm@myokoym.net.common.(identifier).action|`"accept"`|pushes the accept button|
 
 #### Check
 
-TODO
+|key|value|description|
+|---|-----|-----------|
+|extensions.auto-confirm@myokoym.net.common.(identifier).type|`"prompt"`|maches to dialogs shown by `prompts.confirmCheck()`|
+|extensions.auto-confirm@myokoym.net.common.(identifier).text|`"foo"`|matches to dialog with text including "foo"|
+|extensions.auto-confirm@myokoym.net.common.(identifier).actions|`["check","accept"]"`|checks the checkbox and pushes the accept button|
 
 #### ConfirmEx
 
-TODO
+|key|value|description|
+|---|-----|-----------|
+|extensions.auto-confirm@myokoym.net.common.(identifier).type|`"confirmEx"`|maches to dialogs shown by `prompts.confirmEx()`|
+|extensions.auto-confirm@myokoym.net.common.(identifier).text|`"foo"`|matches to dialog with text including "foo"|
+|extensions.auto-confirm@myokoym.net.common.(identifier).actions|`"push;bar"`|pushes a button that with label including "bar"|
