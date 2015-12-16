@@ -82,7 +82,10 @@ function handleWindow(aWindow)
     return;
   } else {
     log("generalWindow");
-    handleGeneralWindow(aWindow);
+    aWindow.addEventListener('load', function onload() {
+      aWindow.removeEventListener('load', onload);
+      handleGeneralWindow(aWindow);
+    });
     return;
   }
 
@@ -135,8 +138,6 @@ function handleGeneralWindow(aWindow)
     let config = generalConfigs[index];
     log("config: " + config);
     if (matchedWindow(aWindow, config)) {
-      aWindow.addEventListener('load', function onload() {
-        aWindow.removeEventListener('load', onload);
         aWindow.setTimeout(function() {
           let action = config.action;
           if (action)
@@ -145,7 +146,6 @@ function handleGeneralWindow(aWindow)
           if (actions)
             processActions(aWindow, actions);
         }, 0);
-      });
       return;
     }
     fromIndex = index + 1;
