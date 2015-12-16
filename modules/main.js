@@ -60,7 +60,7 @@ var listener = {
     updateConfigsTimer = timer.setTimeout(function() {
       updateConfigs();
       delete updateConfigsTimer;
-    }, 1000);
+    }, 100);
     log("observe: end");
   }
 };
