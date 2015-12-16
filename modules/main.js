@@ -125,12 +125,17 @@ function handleGeneralWindow(aWindow)
     let config = generalConfigs[index];
     log("config: " + config);
     if (matchedWindow(aWindow, config)) {
-      let action = config.action;
-      if (action)
-        processAction(aWindow, action);
-      let actions = config.actions;
-      if (actions)
-        processActions(aWindow, actions);
+      aWindow.addEventListener('load', function onload() {
+        aWindow.removeEventListener('load', onload);
+        aWindow.setTimeout(function() {
+          let action = config.action;
+          if (action)
+            processAction(aWindow, action);
+          let actions = config.actions;
+          if (actions)
+            processActions(aWindow, actions);
+        }, 0);
+      });
       return;
     }
     fromIndex = index + 1;
@@ -164,6 +169,21 @@ function processAction(aWindow, aAction)
   case 'cancel':
     doc.documentElement.cancelDialog();
     log("cancel");
+    return;
+  case 'click':
+    log("click");
+    {
+      let element = findElementByLabel(aWindow, value);
+      log(element);
+      if (typeof element.click === "function") {
+        log("element.click(): ready");
+        element.click();
+        log("element.click(): done");
+      } else {
+        log("element is not clickable");
+        Cu.reportError(new Error("found element is not clickable."));
+      }
+    }
     return;
   case 'push':
     var buttons = doc.documentElement._buttons;
