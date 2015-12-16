@@ -9,40 +9,6 @@ var prefs = require('lib/prefs').prefs;
 {
   if (prefs.getDefaultPref(BASE + 'debug') === null)
     prefs.setDefaultPref(BASE + 'debug', false);
-  // For development
-  if (prefs.getPref(BASE + 'debug')) {
-    prefs.setDefaultPref(BASE + 'common.debug-confirm-cancel.action', 'cancel');
-    prefs.setDefaultPref(BASE + 'common.debug-confirm-cancel.text', 'auto-confirm');
-    prefs.setDefaultPref(BASE + 'common.debug-confirm-cancel.type', 'confirm');
-    prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.action', 'accept');
-    prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.text', 'auto-ok');
-    prefs.setDefaultPref(BASE + 'common.debug-confirm-ok.type', 'confirm');
-    prefs.setDefaultPref(BASE + 'common.debug-prompt.actions', '["input;auto-confirm","accept"]');
-    prefs.setDefaultPref(BASE + 'common.debug-prompt.text', 'auto-input');
-    prefs.setDefaultPref(BASE + 'common.debug-prompt.type', 'prompt');
-    prefs.setDefaultPref(BASE + 'common.debug-alert.action', 'accept');
-    prefs.setDefaultPref(BASE + 'common.debug-alert.text', 'auto-alert');
-    prefs.setDefaultPref(BASE + 'common.debug-alert.type', 'alert');
-    prefs.setDefaultPref(BASE + 'common.debug-check.actions', '["check","accept"]');
-    prefs.setDefaultPref(BASE + 'common.debug-check.text', 'auto-check');
-    prefs.setDefaultPref(BASE + 'common.debug-check.type', 'prompt');
-    prefs.setDefaultPref(BASE + 'common.debug-confirmEx.action', 'push;auto');
-    prefs.setDefaultPref(BASE + 'common.debug-confirmEx.text', 'auto-confirmEx');
-    prefs.setDefaultPref(BASE + 'common.debug-confirmEx.type', 'confirmEx');
-    prefs.setDefaultPref(BASE + 'general.debug-view-cert.action', 'click;証明書を表示');
-    prefs.setDefaultPref(BASE + 'general.debug-view-cert.text', '証明書を表示');
-    prefs.setDefaultPref(BASE + 'general.debug-view-cert.url', 'chrome://browser/content/pageinfo/pageInfo.xul');
-
-    prefs.setDefaultPref(BASE + 'general.debug-download-cert.url', 'chrome://pippki/content/downloadcert.xul');
-    prefs.setDefaultPref(BASE + 'general.debug-download-cert.text', '"site.example.com" が行う認証のうち、信頼するものを選択してください。');
-    let actions = [
-      'check;この認証局による Web サイトの識別を信頼する',
-      'check;この認証局によるメールユーザの識別を信頼する',
-      'check;この認証局によるソフトウェア製作者の識別を信頼する',
-      'accept'
-    ]
-    prefs.setDefaultPref(BASE + 'general.debug-download-cert.actions', JSON.stringify(actions));
-  }
 }
 
 function log(message) {
