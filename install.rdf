@@ -5,7 +5,7 @@
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
                    em:id="auto-confirm@myokoym.net"
                    em:name="Auto Confirm"
-                   em:version="0.1"
+                   em:version="0.2"
                    em:description="Pushs any confirmation button automatically."
                    em:creator="Masafumi Yokoyama"
                    em:homepageURL="https://github.com/myokoym/auto-confirm"
