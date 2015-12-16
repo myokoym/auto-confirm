@@ -67,9 +67,11 @@ function handleWindow(aWindow)
   var doc = aWindow.document;
   if (doc.documentElement.localName === 'dialog' &&
       doc.documentElement.id === 'commonDialog') {
+    log("commonDialog");
     handleCommonDialog(aWindow);
     return;
   } else {
+    log("generalWindow");
     handleGeneralWindow(aWindow);
     return;
   }
@@ -173,12 +175,16 @@ function handleGeneralWindow(aWindow)
 {
   var doc = aWindow.document;
   var url = aWindow.location.href;
+  log("url: " + url);
   var fromIndex = 0;
   while (true) {
+    log("fromIndex: " + fromIndex);
     let index = generalUrls.indexOf(url, fromIndex);
+    log("index: " + index);
     if (index === -1)
       return;
     let config = generalConfigs[index];
+    log("config: " + config);
     if (matchedWindow(aWindow, config)) {
       let action = config.action;
       if (action)
@@ -193,29 +199,37 @@ function handleGeneralWindow(aWindow)
 }
 
 function matchedWindow(aWindow, aConfig) {
+  log("matchedWindow");
   let textMatcher = aConfig.text;
+  log("  textMatcher: " + textMatcher);
   if (textMatcher && !findElementByLabel(aWindow, textMatcher))
     return false;
   let titleMatcher = aConfig.title;
+  log("  titleMatcher: " + titleMatcher);
   let title = aWindow.document.title;
   if (titleMatcher && !title.match(titleMatcher))
     return false;
 
+  log("  match");
   return  true;
 }
 
 function findElementByLabel(aWindow, text) {
+  log("findElementByLabel");
   text = text.replace(/"/g, '\\"');
   var selector = '*[label*="' + text + '"],' +
                  'label[value*="' + text + '"],' +
                  'description[value*="' + text + '"]';
+  log("  selector: " + selector);
   var elements = aWindow.document.querySelectorAll(selector);
+  log("  elements.length: " + elements.length);
   for (let element of elements) {
     if (element.clientHeight > 0 &&
         element.clientWidth > 0) {
       return element;
     }
   }
+  log("  no visible element");
   return null;
 }
 
