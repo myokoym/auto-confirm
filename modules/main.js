@@ -138,14 +138,14 @@ function handleGeneralWindow(aWindow)
     let config = generalConfigs[index];
     log("config: " + config);
     if (matchedWindow(aWindow, config)) {
-        aWindow.setTimeout(function() {
-          let action = config.action;
-          if (action)
-            processAction(aWindow, action);
-          let actions = config.actions;
-          if (actions)
-            processActions(aWindow, actions);
-        }, 0);
+      aWindow.setTimeout(function() {
+        let action = config.action;
+        if (action)
+          processAction(aWindow, action);
+        let actions = config.actions;
+        if (actions)
+          processActions(aWindow, actions);
+      }, 0);
       return;
     }
     fromIndex = index + 1;
