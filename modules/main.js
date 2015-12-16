@@ -43,16 +43,25 @@ function updateConfigs() {
 }
 updateConfigs();
 
+var timer = Cu.import('resource://gre/modules/Timer.jsm', {});
+var updateConfigsTimer;
 var listener = {
   domains : [
     BASE + 'general'
   ],
   observe : function(aSubject, aTopic, aData)
   {
-    log("observe");
+    log("observe: start");
     if (aTopic != 'nsPref:changed')
       return;
-    updateConfigs();
+    log(updateConfigsTimer);
+    if (updateConfigsTimer)
+      timer.clearTimeout(updateConfigsTimer);
+    updateConfigsTimer = timer.setTimeout(function() {
+      updateConfigs();
+      delete updateConfigsTimer;
+    }, 1000);
+    log("observe: end");
   }
 };
 prefs.addPrefListener(listener);
