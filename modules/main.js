@@ -32,6 +32,16 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'general.debug-view-cert.action', 'click;証明書を表示');
     prefs.setDefaultPref(BASE + 'general.debug-view-cert.text', '証明書を表示');
     prefs.setDefaultPref(BASE + 'general.debug-view-cert.url', 'chrome://browser/content/pageinfo/pageInfo.xul');
+
+    prefs.setDefaultPref(BASE + 'general.debug-view-document-cert.url', 'chrome://pippki/content/downloadcert.xul');
+    prefs.setDefaultPref(BASE + 'general.debug-view-download-cert.text', '"site.example.com" が行う認証のうち、信頼するものを選択してください。');
+    let actions = [
+      'check;この認証局による Web サイトの識別を信頼する',
+      'check;この認証局によるメールユーザの識別を信頼する',
+      'check;この認証局によるソフトウェア製作者の識別を信頼する',
+      'accept'
+    ]
+    prefs.setDefaultPref(BASE + 'general.debug-view-download-cert.actions', JSON.stringify(actions));
   }
 }
 
@@ -234,21 +244,44 @@ function matchedWindow(aWindow, aConfig) {
   return  true;
 }
 
+// support text node
+function onRecipientClick(aEvent) {
+  var target = aEvent.target;
+  var checkbox = document.evaluate(
+        'ancestor-or-self::*[local-name()="listitem"]/descendant::*[local-name()="checkbox"]',
+        aEvent.target,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+      ).singleNodeValue;
+  if (checkbox) {
+    checkbox.checked = !checkbox.checked;
+    checkAllRecipientsVerified();
+  }
+}
+
 function findVisibleElementByLabel(aWindow, text) {
   log("findVisibleElementByLabel");
   text = text.replace(/"/g, '\\"');
-  var selector = '*[label*="' + text + '"],' +
-                 'label[value*="' + text + '"],' +
-                 'description[value*="' + text + '"]';
-  log("  selector: " + selector);
-  var elements = aWindow.document.querySelectorAll(selector);
-  log("  elements.length: " + elements.length);
-  for (let element of elements) {
+  var expression = '/descendant::*[contains(@label, "' + text + '")] | ' +
+                   '/descendant::*[local-name()="label" or local-name()="description"][contains(@value, "' + text + '")]';
+  var elements = aWindow.document.evaluate(
+                   expression,
+                   aWindow.document,
+                   null,
+                   aWindow.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+                   null
+                 );
+  log("  elements.length: " + elements.snapshotLength);
+  for (var i = 0, maxi = elements.snapshotLength; i < maxi; i++)
+  {
+    let element = elements.snapshotItem(i);
     if (element.clientHeight > 0 &&
         element.clientWidth > 0) {
       return element;
     }
   }
+
   log("  no visible element");
   return null;
 }
