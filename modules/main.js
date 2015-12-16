@@ -19,18 +19,41 @@ function log(message) {
 
 var generalUrls = [];
 var generalConfigs = [];
-var configs = prefs.getChildren(BASE + 'general');
-for (let config of configs) {
-  log(config);
-  let url = prefs.getPref(config + '.url');
-  generalUrls.push(url);
-  generalConfigs.push({
-    text:    prefs.getPref(config + '.text'),
-    title:   prefs.getPref(config + '.title'),
-    action:  prefs.getPref(config + '.action'),
-    actions: prefs.getPref(config + '.actions')
-  });
+
+function updateConfigs() {
+  log("updateConfigs");
+  generalUrls = [];
+  generalConfigs = [];
+  var configs = prefs.getChildren(BASE + 'general');
+  for (let config of configs) {
+    log(config);
+    let url = prefs.getPref(config + '.url');
+    generalUrls.push(url);
+    generalConfigs.push({
+      text:    prefs.getPref(config + '.text'),
+      title:   prefs.getPref(config + '.title'),
+      action:  prefs.getPref(config + '.action'),
+      actions: prefs.getPref(config + '.actions')
+    });
+  }
+  log(JSON.stringify(generalUrls));
+  log(JSON.stringify(generalConfigs));
 }
+updateConfigs();
+
+var listener = {
+  domains : [
+    BASE + 'general'
+  ],
+  observe : function(aSubject, aTopic, aData)
+  {
+    log("observe");
+    if (aTopic != 'nsPref:changed')
+      return;
+    updateConfigs();
+  }
+};
+prefs.addPrefListener(listener);
 
 load('lib/WindowManager');
 
@@ -266,6 +289,7 @@ WindowManager.addHandler(handleWindow);
 
 function shutdown()
 {
+  prefs.removePrefListener(listener);
   WindowManager = undefined;
   global = undefined;
 }
