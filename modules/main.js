@@ -262,9 +262,12 @@ function onRecipientClick(aEvent) {
 
 function findVisibleElementByLabel(aWindow, text) {
   log("findVisibleElementByLabel");
-  text = text.replace(/"/g, '\\"');
-  var expression = '/descendant::*[contains(@label, "' + text + '")] | ' +
-                   '/descendant::*[local-name()="label" or local-name()="description"][contains(@value, "' + text + '")]';
+  text = 'concat("' + text.replace(/"/g, '", \'"\', "') + '")';
+  var expression = '/descendant::*[contains(@label, ' + text + ')] | ' +
+                   '/descendant::*[local-name()="label" or local-name()="description"][contains(@value, ' + text + ')] | ' +
+                   '/descendant::*[contains(text(), ' + text + ')]';
+  log("  expression: " + expression);
+  try {
   var elements = aWindow.document.evaluate(
                    expression,
                    aWindow.document,
@@ -272,6 +275,9 @@ function findVisibleElementByLabel(aWindow, text) {
                    aWindow.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
                    null
                  );
+  } catch(e) {
+    log("  error: " + e);
+  }
   log("  elements.length: " + elements.snapshotLength);
   for (var i = 0, maxi = elements.snapshotLength; i < maxi; i++)
   {
