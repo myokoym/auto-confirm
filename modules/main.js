@@ -173,7 +173,7 @@ function processAction(aWindow, aAction)
   case 'click':
     log("click");
     {
-      let element = findElementByLabel(aWindow, value);
+      let element = findVisibleElementByLabel(aWindow, value);
       log(element);
       if (typeof element.click === "function") {
         log("element.click(): ready");
@@ -222,7 +222,7 @@ function matchedWindow(aWindow, aConfig) {
   log("matchedWindow");
   let textMatcher = aConfig.text;
   log("  textMatcher: " + textMatcher);
-  if (textMatcher && !findElementByLabel(aWindow, textMatcher))
+  if (textMatcher && !findVisibleElementByLabel(aWindow, textMatcher))
     return false;
   let titleMatcher = aConfig.title;
   log("  titleMatcher: " + titleMatcher);
@@ -234,8 +234,8 @@ function matchedWindow(aWindow, aConfig) {
   return  true;
 }
 
-function findElementByLabel(aWindow, text) {
-  log("findElementByLabel");
+function findVisibleElementByLabel(aWindow, text) {
+  log("findVisibleElementByLabel");
   text = text.replace(/"/g, '\\"');
   var selector = '*[label*="' + text + '"],' +
                  'label[value*="' + text + '"],' +
