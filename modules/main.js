@@ -33,15 +33,15 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'general.debug-view-cert.text', '証明書を表示');
     prefs.setDefaultPref(BASE + 'general.debug-view-cert.url', 'chrome://browser/content/pageinfo/pageInfo.xul');
 
-    prefs.setDefaultPref(BASE + 'general.debug-view-document-cert.url', 'chrome://pippki/content/downloadcert.xul');
-    prefs.setDefaultPref(BASE + 'general.debug-view-download-cert.text', '"site.example.com" が行う認証のうち、信頼するものを選択してください。');
+    prefs.setDefaultPref(BASE + 'general.debug-download-cert.url', 'chrome://pippki/content/downloadcert.xul');
+    prefs.setDefaultPref(BASE + 'general.debug-download-cert.text', '"site.example.com" が行う認証のうち、信頼するものを選択してください。');
     let actions = [
       'check;この認証局による Web サイトの識別を信頼する',
       'check;この認証局によるメールユーザの識別を信頼する',
       'check;この認証局によるソフトウェア製作者の識別を信頼する',
       'accept'
     ]
-    prefs.setDefaultPref(BASE + 'general.debug-view-download-cert.actions', JSON.stringify(actions));
+    prefs.setDefaultPref(BASE + 'general.debug-download-cert.actions', JSON.stringify(actions));
   }
 }
 
