@@ -17,8 +17,6 @@ function log(message) {
   }
 }
 
-// 初回起動時にURLの配列を準備する
-// ハンドラで探しやすいように
 var generalUrls = [];
 var generalConfigs = [];
 var configs = prefs.getChildren(BASE + 'general');
