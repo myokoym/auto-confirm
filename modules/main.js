@@ -244,22 +244,6 @@ function matchedWindow(aWindow, aConfig) {
   return  true;
 }
 
-// support text node
-function onRecipientClick(aEvent) {
-  var target = aEvent.target;
-  var checkbox = document.evaluate(
-        'ancestor-or-self::*[local-name()="listitem"]/descendant::*[local-name()="checkbox"]',
-        aEvent.target,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null
-      ).singleNodeValue;
-  if (checkbox) {
-    checkbox.checked = !checkbox.checked;
-    checkAllRecipientsVerified();
-  }
-}
-
 function findVisibleElementByLabel(aWindow, text) {
   log("findVisibleElementByLabel");
   text = 'concat("' + text.replace(/"/g, '", \'"\', "') + '")';
