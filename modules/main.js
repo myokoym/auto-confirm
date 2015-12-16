@@ -213,14 +213,32 @@ function processAction(aWindow, aAction)
     log("input");
     return;
   case 'check':
-    doc.getElementById("checkbox").checked = true;
-    aWindow.args.checked = true;
     log("check");
+    if (value) {
+      let element = findVisibleElementByLabel(aWindow, value);
+      log("  element: " + element);
+      log("  element.checked: ready");
+      element.checked = true;
+      log("  element.checked: done");
+    } else {
+      // For commonDialog
+      doc.getElementById("checkbox").checked = true;
+      aWindow.args.checked = true;
+    }
     return;
   case 'uncheck':
-    doc.getElementById("checkbox").checked = false;
-    aWindow.args.checked = false;
     log("uncheck");
+    if (value) {
+      let element = findVisibleElementByLabel(aWindow, value);
+      log(element);
+      log("  element.checked: ready");
+      element.checked = false;
+      log("  element.checked: done");
+    } else {
+      // For commonDialog
+      doc.getElementById("checkbox").checked = false;
+      aWindow.args.checked = false;
+    }
     return;
   default:
     log("no action");
