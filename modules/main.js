@@ -29,6 +29,9 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'common.debug-confirmEx.action', 'push;auto');
     prefs.setDefaultPref(BASE + 'common.debug-confirmEx.text', 'auto-confirmEx');
     prefs.setDefaultPref(BASE + 'common.debug-confirmEx.type', 'confirmEx');
+    prefs.setDefaultPref(BASE + 'general.debug-view-cert.action', 'click;証明書を表示');
+    prefs.setDefaultPref(BASE + 'general.debug-view-cert.text', '証明書を表示');
+    prefs.setDefaultPref(BASE + 'general.debug-view-cert.url', 'chrome://browser/content/pageinfo/pageInfo.xul');
   }
 }
 
@@ -36,6 +39,23 @@ function log(message) {
   if (prefs.getPref(BASE + 'debug')) {
     console.log("auto-confirm: " + message);
   }
+}
+
+// 初回起動時にURLの配列を準備する
+// ハンドラで探しやすいように
+var generalUrls = [];
+var generalConfigs = [];
+var configs = prefs.getChildren(BASE + 'general');
+for (let config of configs) {
+  log(config);
+  let url = prefs.getPref(config + '.url');
+  generalUrls.push(url);
+  generalConfigs.push({
+    text:    prefs.getPref(config + '.text'),
+    title:   prefs.getPref(config + '.title'),
+    action:  prefs.getPref(config + '.action'),
+    actions: prefs.getPref(config + '.actions')
+  });
 }
 
 load('lib/WindowManager');
@@ -48,6 +68,9 @@ function handleWindow(aWindow)
   if (doc.documentElement.localName === 'dialog' &&
       doc.documentElement.id === 'commonDialog') {
     handleCommonDialog(aWindow);
+    return;
+  } else {
+    handleGeneralWindow(aWindow);
     return;
   }
 
@@ -144,6 +167,56 @@ function processAction(aWindow, aAction)
     log("no action");
     return;
   }
+}
+
+function handleGeneralWindow(aWindow)
+{
+  var doc = aWindow.document;
+  var url = aWindow.location.href;
+  var fromIndex = 0;
+  while (true) {
+    let index = generalUrls.indexOf(url, fromIndex);
+    if (index === -1)
+      return;
+    let config = generalConfigs[index];
+    if (matchedWindow(aWindow, config)) {
+      let action = config.action;
+      if (action)
+        processAction(aWindow, action);
+      let actions = config.actions;
+      if (actions)
+        processActions(aWindow, actions);
+      return;
+    }
+    fromIndex = index + 1;
+  }
+}
+
+function matchedWindow(aWindow, aConfig) {
+  let textMatcher = aConfig.text;
+  if (textMatcher && !findElementByLabel(aWindow, textMatcher))
+    return false;
+  let titleMatcher = aConfig.title;
+  let title = aWindow.document.title;
+  if (titleMatcher && !title.match(titleMatcher))
+    return false;
+
+  return  true;
+}
+
+function findElementByLabel(aWindow, text) {
+  text = text.replace(/"/g, '\\"');
+  var selector = '*[label*="' + text + '"],' +
+                 'label[value*="' + text + '"],' +
+                 'description[value*="' + text + '"]';
+  var elements = aWindow.document.querySelectorAll(selector);
+  for (let element of elements) {
+    if (element.clientHeight > 0 &&
+        element.clientWidth > 0) {
+      return element;
+    }
+  }
+  return null;
 }
 
 WindowManager.addHandler(handleWindow);
