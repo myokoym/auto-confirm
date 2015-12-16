@@ -264,7 +264,11 @@ function matchedWindow(aWindow, aConfig) {
 
 function findVisibleElementByLabel(aWindow, text) {
   log("findVisibleElementByLabel");
-  text = 'concat("' + text.replace(/"/g, '", \'"\', "') + '")';
+  if (text.indexOf('"') !== -1) {
+    text = 'concat("' + text.replace(/"/g, '", \'"\', "') + '")';
+  } else {
+    text = '"' + text + '"';
+  }
   var expression = '/descendant::*[contains(@label, ' + text + ')] | ' +
                    '/descendant::*[local-name()="label" or local-name()="description"][contains(@value, ' + text + ')] | ' +
                    '/descendant::*[contains(text(), ' + text + ')]';
