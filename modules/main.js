@@ -28,6 +28,8 @@ function updateConfigs() {
   for (let config of configs) {
     log(config);
     let url = prefs.getPref(config + '.url');
+    if (!url)
+      continue;
     generalUrls.push(url);
     generalConfigs.push({
       text:    prefs.getPref(config + '.text'),
