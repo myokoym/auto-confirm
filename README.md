@@ -62,6 +62,6 @@ Pushs any confirmation button automatically.
 
 |key|value|description|
 |---|-----|-----------|
-|extensions.auto-confirm@myokoym.net.general.(identifier).url|`"chrome://browser/content/pageinfo/pageInfo.xul"`|maches to windows of specified URL`|
+|extensions.auto-confirm@myokoym.net.general.(identifier).url|`"chrome://browser/content/pageinfo/pageInfo.xul"`|maches to windows of specified URL|
 |extensions.auto-confirm@myokoym.net.general.(identifier).text|`"foo"`|matches to window with any element including "foo"|
 |extensions.auto-confirm@myokoym.net.general.(identifier).action|`"click;bar"`|pushes a button that with label including "bar"|
