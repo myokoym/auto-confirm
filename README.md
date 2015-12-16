@@ -55,3 +55,13 @@ Pushs any confirmation button automatically.
 |extensions.auto-confirm@myokoym.net.common.(identifier).type|`"confirmEx"`|maches to dialogs shown by `prompts.confirmEx()`|
 |extensions.auto-confirm@myokoym.net.common.(identifier).text|`"foo"`|matches to dialog with text including "foo"|
 |extensions.auto-confirm@myokoym.net.common.(identifier).actions|`"push;bar"`|pushes a button that with label including "bar"|
+
+### general window
+
+#### View Certificate
+
+|key|value|description|
+|---|-----|-----------|
+|extensions.auto-confirm@myokoym.net.general.(identifier).url|`"chrome://browser/content/pageinfo/pageInfo.xul"`|maches to windows of specified URL`|
+|extensions.auto-confirm@myokoym.net.general.(identifier).text|`"foo"`|matches to window with any element including "foo"|
+|extensions.auto-confirm@myokoym.net.general.(identifier).action|`"click;bar"`|pushes a button that with label including "bar"|
