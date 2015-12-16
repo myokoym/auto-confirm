@@ -110,6 +110,33 @@ function handleCommonDialog(aWindow)
     log("no match");
 }
 
+function handleGeneralWindow(aWindow)
+{
+  var doc = aWindow.document;
+  var url = aWindow.location.href;
+  log("url: " + url);
+  var fromIndex = 0;
+  while (true) {
+    log("fromIndex: " + fromIndex);
+    let index = generalUrls.indexOf(url, fromIndex);
+    log("index: " + index);
+    if (index === -1)
+      return;
+    let config = generalConfigs[index];
+    log("config: " + config);
+    if (matchedWindow(aWindow, config)) {
+      let action = config.action;
+      if (action)
+        processAction(aWindow, action);
+      let actions = config.actions;
+      if (actions)
+        processActions(aWindow, actions);
+      return;
+    }
+    fromIndex = index + 1;
+  }
+}
+
 function processActions(aWindow, aActions)
 {
   var doc = aWindow.document;
@@ -168,33 +195,6 @@ function processAction(aWindow, aAction)
   default:
     log("no action");
     return;
-  }
-}
-
-function handleGeneralWindow(aWindow)
-{
-  var doc = aWindow.document;
-  var url = aWindow.location.href;
-  log("url: " + url);
-  var fromIndex = 0;
-  while (true) {
-    log("fromIndex: " + fromIndex);
-    let index = generalUrls.indexOf(url, fromIndex);
-    log("index: " + index);
-    if (index === -1)
-      return;
-    let config = generalConfigs[index];
-    log("config: " + config);
-    if (matchedWindow(aWindow, config)) {
-      let action = config.action;
-      if (action)
-        processAction(aWindow, action);
-      let actions = config.actions;
-      if (actions)
-        processActions(aWindow, actions);
-      return;
-    }
-    fromIndex = index + 1;
   }
 }
 
