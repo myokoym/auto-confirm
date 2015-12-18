@@ -6,7 +6,8 @@
 <!DOCTYPE prefwindow SYSTEM "chrome://auto-confirm/locale/messages.dtd">
 <prefwindow id="auto-confirm-config"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-            title="&config.title;">
+            title="&config.title;"
+            onunload="shutdown();">
   <prefpane id="prefpane-general"
             label="&config.general;">
     <preferences>
@@ -27,5 +28,7 @@
     <checkbox id="extensions.auto-confirm@myokoym.net.debug-check"
               preference="extensions.auto-confirm@myokoym.net.debug"
               label="&config.debug;"/>
+    <script type="application/x-javascript"
+            src="./config.js"/>
   </prefpane>
 </prefwindow>
