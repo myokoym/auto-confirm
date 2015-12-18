@@ -117,13 +117,11 @@ function addNewRule() {
 }
 
 function edit(aRule) {
-  console.log(aRule);
   window.openDialog('chrome://auto-confirm/content/edit.xul',
                     'auto-confirm-config-edit',
                     'resizable,chrome,modal,titlebar,centerscreen',
                     aRule);
   if (aRule.changed) {
-    console.log(aRule);
     saveRules();
     buildRulesList();
     return true;
