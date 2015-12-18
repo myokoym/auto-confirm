@@ -34,20 +34,20 @@ function loadRules() {
   });
 
   return allRules.map(function(aBase) {
-    let name = decodeURIComponent(base.replace(basePartMatcher, ''));
+    let name = decodeURIComponent(aBase.replace(basePartMatcher, ''));
     let group = RegExp.$1;
     return {
       // common properties
       name:    name,
       group:   group,
-      title:   prefs.getPref(base + '.title') || '',
-      text:    prefs.getPref(base + '.text') || '',
-      action:  prefs.getPref(base + '.action') || '',
-      actions: prefs.getPref(base + '.actions') || '',
+      title:   prefs.getPref(aBase + '.title') || '',
+      text:    prefs.getPref(aBase + '.text') || '',
+      action:  prefs.getPref(aBase + '.action') || '',
+      actions: prefs.getPref(aBase + '.actions') || '',
       // commonDialog rule specific properties
-      type:    prefs.getPref(base + '.type') || '',
+      type:    prefs.getPref(aBase + '.type') || '',
       // general rule specific properties
-      url:     prefs.getPref(base + '.url') || ''
+      url:     prefs.getPref(aBase + '.url') || ''
     };
   });
 }
