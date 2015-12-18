@@ -31,6 +31,7 @@
 <!ENTITY config.edit.actions.type.push.label    "ボタンを押す">
 <!ENTITY config.edit.actions.type.click.label   "クリックする">
 <!ENTITY config.edit.actions.type.input.label   "テキストを入力">
+<!ENTITY config.edit.actions.params             "以下の文字列を含む物">
 <!ENTITY config.edit.actions.control.add.label      "操作を追加">
 <!ENTITY config.edit.actions.control.up.label       "▲">
 <!ENTITY config.edit.actions.control.up.tooltip     "上に移動">

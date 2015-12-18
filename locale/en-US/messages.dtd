@@ -31,6 +31,7 @@
 <!ENTITY config.edit.actions.type.push.label    "Push a button">
 <!ENTITY config.edit.actions.type.click.label   "Click">
 <!ENTITY config.edit.actions.type.input.label   "Input text">
+<!ENTITY config.edit.actions.params             "with a label includes">
 <!ENTITY config.edit.actions.control.add.label      "Add New Action">
 <!ENTITY config.edit.actions.control.up.label       "▲">
 <!ENTITY config.edit.actions.control.up.tooltip     "Move Up">

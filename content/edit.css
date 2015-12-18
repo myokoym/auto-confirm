@@ -13,11 +13,17 @@
 }
 
 .group-common,
-.group-general {
+.group-general,
+.action-params-label,
+.action-params-label-input {
   visibility: collapse;
 }
 :root[group-type="common"] .group-common,
-:root[group-type="general"] .group-general {
+:root[group-type="general"] .group-general,
+.action-name-field[value="push"] ~ .action-params-label,
+.action-name-field[value="click"] ~ .action-params-label,
+:root[group-type="general"] .action-name-field[value="check"] ~ .action-params-label,
+:root[group-type="general"] .action-name-field[value="uncheck"] ~ .action-params-label {
   visibility: visible;
 }
 

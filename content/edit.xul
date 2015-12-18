@@ -129,6 +129,9 @@
                     label="&config.edit.actions.type.input.label;"/>
         </menupopup>
       </menulist>
+      <label class="action-params-label"
+             value="&config.edit.actions.params;"
+             control="action-params-field"/>
       <textbox class="action-params-field"
                flex="1"/>
       <button class="action-up"
