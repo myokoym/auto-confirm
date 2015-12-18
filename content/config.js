@@ -53,7 +53,17 @@ function loadRules() {
 }
 
 function buildRulesList() {
+  var lastSelectedRule;
+  if (gRulesList.selectedCount > 0) {
+    lastSelectedRule = gRulesList.selectedItem.rule;
+  }
 
+  var range = document.createRange();
+  range.selectNodeContents(gRulesList);
+  range.deleteContents();
+  range.detach();
+
+  var itemToBeSelected;
   var fragment = document.createDocumentFragment();
   for (let rule of gRules) {
     let item = document.createElement('richlistitem');
@@ -86,8 +96,17 @@ function buildRulesList() {
     item.appendChild(deleteButton);
 
     fragment.appendChild(item);
+
+    if (lastSelectedRule &&
+        rule === lastSelectedRule) {
+      itemToBeSelected = item;
+    }
   }
   gRulesList.appendChild(fragment);
+
+  if (itemToBeSelected) {
+    gRulesList.selectedItem = itemToBeSelected;
+  }
 }
 
 function edit(aRule) {
@@ -96,6 +115,10 @@ function edit(aRule) {
                     'auto-confirm-config-edit',
                     'resizable,chrome,modal,titlebar,centerscreen',
                     aRule);
+  if (aRule.changed) {
+    console.log(aRule);
+    buildRulesList();
+  }
 }
 
 function shutdown() {

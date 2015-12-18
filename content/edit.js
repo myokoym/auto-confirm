@@ -20,10 +20,11 @@ function init() {
   });
 
   var actions = [];
-  if (gRule.actions)
+  if (gRule.actions) {
     actions = JSON.parse(gRule.actions);
-  else if (gRule.action)
+  } else if (gRule.action) {
     actions = [gRule.action];
+  }
 
   actions.forEach(actionAdd);
 
@@ -70,6 +71,40 @@ function actionDelete(aItem) {
   gActions.removeChild(aItem);
 }
 
+function serializeAction(aItem) {
+  var nameField = aItem.querySelector('.action-name-field');
+  var paramsField = aItem.querySelector('.action-params-field');
+  if (paramsField.clientWidth > 0 &&
+      paramsField.clientHeight > 0 &&
+      paramsField.value) {
+    return nameField.value + ';' + paramsField.value;
+  } else {
+    return nameField.value;
+  }
+}
+
 function onAccept() {
+  ['name',
+   'group',
+   'type',
+   'url',
+   'title',
+   'text'].forEach(function(aProperty) {
+    gRule[aProperty] = document.getElementById(aProperty + '-field').value;
+  });
+
+  var actions = document.querySelectorAll('#actions richlistitem.action');
+  if (actions.length === 0) {
+    gRule.actions = gRule.action = '';
+  } else if (actions.length == 1) {
+    gRule.actions = '';
+    gRule.action = serializeAction(actions[0]);
+  } else {
+    gRule.action = '';
+    gRule.actions = JSON.stringify(Array.map(actions, serializeAction));
+  }
+
+  gRule.changed = true;
+
   return true;
 }

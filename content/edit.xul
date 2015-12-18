@@ -96,6 +96,7 @@
     </rows>
   </grid>
   <richlistitem id="action-item-template"
+                class="action"
                 orient="horizontal"
                 align="center">
     <menulist class="action-name-field"
