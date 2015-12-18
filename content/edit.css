@@ -27,3 +27,20 @@
 :root[group-type="common"] .action-name-field[value="uncheck"] ~ .action-params-field {
   visibility: hidden;
 }
+
+#duplicated-name-message {
+  color: red;
+  text-shadow: white 0 0 1px,
+               white 0 0 1px,
+               white 0 0 1px;
+  visibility: hidden;
+}
+
+:root[duplicated-name] #duplicated-name-message {
+  visibility: visible;
+}
+
+:root[duplicated-name] #name-field {
+  box-shadow: 0px 0px 1px red,
+              0px 0px 3px red;
+}

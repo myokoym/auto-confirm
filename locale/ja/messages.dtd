@@ -10,6 +10,7 @@
 <!ENTITY config.edit.title "新しいルール">
 
 <!ENTITY config.edit.name.label  "ルール名">
+<!ENTITY config.edit.name.duplicated "ルール名が重複しています！">
 <!ENTITY config.edit.group.label "種類">
 <!ENTITY config.edit.group.common.label  "コモンダイアログ">
 <!ENTITY config.edit.group.general.label "一般的なウィンドウ">

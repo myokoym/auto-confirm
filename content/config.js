@@ -25,14 +25,6 @@ function loadRules() {
 
   var allRules = commonDialogRules.concat(generalRules);
   var basePartMatcher = new RegExp('^' + BASE + '(common|general)\\.');
-  allRules.sort(function(aA, aB) {
-    aA = aA.replace(basePartMatcher, '');
-    aB = aB.replace(basePartMatcher, '');
-    return aA < aB ?  -1 :
-           aA == aB ? 0 :
-                      1;
-  });
-
   return allRules.map(function(aBase) {
     let name = decodeURIComponent(aBase.replace(basePartMatcher, ''));
     let group = RegExp.$1;
@@ -62,6 +54,12 @@ function buildRulesList() {
   range.selectNodeContents(gRulesList);
   range.deleteContents();
   range.detach();
+
+  gRules.sort(function(aA, aB) {
+    return aA.name < aB.name ?  -1 :
+           aA.name === aB.name ? 0 :
+                      1;
+  });
 
   var itemToBeSelected;
   var fragment = document.createDocumentFragment();
@@ -119,6 +117,15 @@ function edit(aRule) {
     console.log(aRule);
     buildRulesList();
   }
+}
+
+function isRuleDuplicated(aName, aRule) {
+  var items = document.querySelectorAll('richlistitem[data-name=' + JSON.stringify(aName) + ']');
+  if (items.length === 0)
+    return false;
+  return Array.some(items, function(aItem) {
+    return aItem.rule !== aRule;
+  });
 }
 
 function shutdown() {

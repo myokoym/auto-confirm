@@ -31,6 +31,21 @@ function init() {
   onGroupChanged();
 }
 
+function validateName() {
+  var nameField = document.getElementById('name-field');
+  var name = nameField.value;
+  var accept = document.documentElement.getButton('accept');
+  if (window.opener.isRuleDuplicated(name, gRule)) {
+    accept.setAttribute('disabled', true);
+    document.documentElement.setAttribute('duplicated-name', true);
+    return false;
+  } else {
+    accept.removeAttribute('disabled');
+    document.documentElement.removeAttribute('duplicated-name');
+    return true;
+  }
+}
+
 function onGroupChanged() {
   var group = document.getElementById('group-field').value;
   document.documentElement.setAttribute('group-type', group);

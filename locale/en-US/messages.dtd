@@ -10,6 +10,7 @@
 <!ENTITY config.edit.title "New Rule">
 
 <!ENTITY config.edit.name.label  "Name">
+<!ENTITY config.edit.name.duplicated "This name is duplicated!">
 <!ENTITY config.edit.group.label "Type">
 <!ENTITY config.edit.group.common.label  "Common Dialog">
 <!ENTITY config.edit.group.general.label "General Window">

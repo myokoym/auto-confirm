@@ -22,7 +22,13 @@
       <row align="center">
         <label value="&config.edit.name.label;"
                control="name-field"/>
-        <textbox id="name-field"/>
+        <textbox id="name-field"
+                 oninput="validateName()"/>
+      </row>
+      <row>
+        <spacer/>
+        <label id="duplicated-name-message"
+               value="&config.edit.name.duplicated;"/>
       </row>
       <row align="center">
         <label value="&config.edit.group.label;"
