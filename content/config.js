@@ -132,12 +132,12 @@ function edit(aRule) {
 }
 
 function saveRules() {
-  prefs.getDescendant(BASE + 'common.').forEach(function(aKey) {
-    prefs.clearPref(aKey);
-  });
-  prefs.getDescendant(BASE + 'general.').forEach(function(aKey) {
-    prefs.clearPref(aKey);
-  });
+  for (let key of prefs.getDescendant(BASE + 'common.')) {
+    prefs.clearPref(key);
+  }
+  for (let key of prefs.getDescendant(BASE + 'general.')) {
+    prefs.clearPref(key);
+  }
   gRules.forEach(function(aRule) {
     var base = BASE + aRule.group + '.' + encodeURIComponent(aRule.name) + '.';
     Object.keys(aRule).forEach(function(aProperty) {
