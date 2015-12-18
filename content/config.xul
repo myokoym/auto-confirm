@@ -8,5 +8,13 @@
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   title="&config.title;">
   <prefpane id="prefpane-general" label="&config.general;">
+    <preferences>
+      <preference id="extensions.auto-confirm@myokoym.net.debug"
+                  name="extensions.auto-confirm@myokoym.net.debug"
+                  type="bool"/>
+    </preferences>
+    <checkbox id="extensions.auto-confirm@myokoym.net.debug-check"
+        preference="extensions.auto-confirm@myokoym.net.debug"
+        label="&config.debug;"/>
   </prefpane>
 </prefwindow>

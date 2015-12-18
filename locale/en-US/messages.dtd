@@ -3,3 +3,5 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <!ENTITY config.title       "Configuration of Auto Confrim">
 <!ENTITY config.general     "General">
+
+<!ENTITY config.debug     "Enable debug logs">
