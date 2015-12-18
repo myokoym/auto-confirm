@@ -75,6 +75,7 @@ function buildRulesList() {
     editButton.setAttribute('label', gMessages.getString('config.rule.item.controls.edit.label'));
     editButton.setAttribute('tooltiptext', gMessages.getString('config.rule.item.controls.edit.tooltip'));
     editButton.setAttribute('style', 'min-width:0');
+    editButton.setAttribute('oncommand', 'edit(this.parentNode.rule)');
 
     let deleteButton = document.createElement('button');
     deleteButton.setAttribute('label', gMessages.getString('config.rule.item.controls.delete.label'));
@@ -87,6 +88,14 @@ function buildRulesList() {
     fragment.appendChild(item);
   }
   gRulesList.appendChild(fragment);
+}
+
+function edit(aRule) {
+  console.log(aRule);
+  window.openDialog('chrome://auto-confirm/content/edit.xul',
+                    'auto-confirm-config-edit',
+                    'resizable,chrome,modal,titlebar,centerscreen',
+                    aRule);
 }
 
 function shutdown() {

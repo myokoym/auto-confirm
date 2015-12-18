@@ -5,3 +5,20 @@
 <!ENTITY config.general     "全般">
 
 <!ENTITY config.debug     "デバッグ用のログを出力する">
+
+
+<!ENTITY config.edit.title "新しいルール">
+
+<!ENTITY config.edit.name.label  "ルール名">
+<!ENTITY config.edit.group.label "種類">
+<!ENTITY config.edit.group.common.label  "コモンダイアログ">
+<!ENTITY config.edit.group.general.label "一般的なウィンドウ">
+<!ENTITY config.edit.type.label  "ダイアログの種類">
+<!ENTITY config.edit.type.alert.label     "アラート">
+<!ENTITY config.edit.type.confirm.label   "確認">
+<!ENTITY config.edit.type.confirmEx.label "高機能な確認">
+<!ENTITY config.edit.type.prompt.label    "文字入力">
+<!ENTITY config.edit.type.select.label    "選択">
+<!ENTITY config.edit.url.label   "ウィンドウのURL">
+<!ENTITY config.edit.title.label "以下をウィンドウのタイトルに含む">
+<!ENTITY config.edit.text.label  "以下をウィンドウ内の文字列に含む">

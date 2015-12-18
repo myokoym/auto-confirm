@@ -5,3 +5,20 @@
 <!ENTITY config.general     "General">
 
 <!ENTITY config.debug     "Enable debug logs">
+
+
+<!ENTITY config.edit.title "New Rule">
+
+<!ENTITY config.edit.name.label  "Name">
+<!ENTITY config.edit.group.label "Type">
+<!ENTITY config.edit.group.common.label  "Common Dialog">
+<!ENTITY config.edit.group.general.label "General Window">
+<!ENTITY config.edit.type.label  "Dialog Type">
+<!ENTITY config.edit.type.alert.label     "Alert">
+<!ENTITY config.edit.type.confirm.label   "Confirm">
+<!ENTITY config.edit.type.confirmEx.label "Confirm with extra features">
+<!ENTITY config.edit.type.prompt.label    "Prompt">
+<!ENTITY config.edit.type.select.label    "Select">
+<!ENTITY config.edit.url.label   "Window's URL">
+<!ENTITY config.edit.title.label "Having window title includes:">
+<!ENTITY config.edit.text.label  "Having any message or label including:">
