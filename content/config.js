@@ -35,7 +35,22 @@ function buildRulesList() {
 
     let item = document.createElement('listitem');
     let cell = document.createElement('listcell');
-    cell.setAttribute('label', name + ' (' + group + ')');
+    cell.setAttribute('label', name);
+
+    // common properties
+    item.setAttribute('data-name', name);
+    item.setAttribute('data-group', group);
+    item.setAttribute('data-title', prefs.getPref(base + '.title') || '');
+    item.setAttribute('data-text', prefs.getPref(base + '.text') || '');
+    item.setAttribute('data-action', prefs.getPref(base + '.action') || '');
+    item.setAttribute('data-actions', prefs.getPref(base + '.actions') || '');
+
+    // commonDialog rule specific properties
+    item.setAttribute('data-type', prefs.getPref(base + '.type') || '');
+
+    // general rule specific properties
+    item.setAttribute('data-url', prefs.getPref(base + '.url') || '');
+
     item.appendChild(cell);
     fragment.appendChild(item);
   }
