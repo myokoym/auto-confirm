@@ -20,7 +20,8 @@
     </preferences>
     <richlistbox id="rules"
              flex="1"
-             style="min-height: 5em;">
+             style="min-height: 5em;"
+             ondblclick="if (this.selectedItem) edit(this.selectedItem.rule);">
     </richlistbox>
     <checkbox id="extensions.auto-confirm@myokoym.net.debug-check"
               preference="extensions.auto-confirm@myokoym.net.debug"
