@@ -79,13 +79,13 @@ function buildRulesList() {
     editButton.setAttribute('label', gMessages.getString('config.rule.item.controls.edit.label'));
     editButton.setAttribute('tooltiptext', gMessages.getString('config.rule.item.controls.edit.tooltip'));
     editButton.setAttribute('style', 'min-width:0');
-    editButton.setAttribute('oncommand', 'edit(this.parentNode.rule)');
+    editButton.setAttribute('oncommand', 'editRule(this.parentNode.rule)');
 
     let deleteButton = document.createElement('button');
     deleteButton.setAttribute('label', gMessages.getString('config.rule.item.controls.delete.label'));
     deleteButton.setAttribute('tooltiptext', gMessages.getString('config.rule.item.controls.delete.tooltip'));
     deleteButton.setAttribute('style', 'min-width:0');
-    deleteButton.setAttribute('oncommand', 'delete(this.parentNode.rule)');
+    deleteButton.setAttribute('oncommand', 'deleteRule(this.parentNode.rule)');
 
     item.appendChild(editButton);
     item.appendChild(deleteButton);
@@ -108,12 +108,12 @@ function buildRulesList() {
 function addNewRule() {
   var rule = {};
   gRules.push(rule);
-  var saved = edit(rule);
+  var saved = editRule(rule);
   if (!saved)
     gRules.splice(gRules.indexOf(rule), 1);
 }
 
-function edit(aRule) {
+function editRule(aRule) {
   window.openDialog('chrome://auto-confirm/content/edit.xul',
                     'auto-confirm-config-edit',
                     'resizable,chrome,modal,titlebar,centerscreen',
@@ -126,7 +126,7 @@ function edit(aRule) {
   return false;
 }
 
-function delete(aRule) {
+function deleteRule(aRule) {
   var index = gRules.indexOf(aRule);
   if (index < 0)
     return;
