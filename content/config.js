@@ -85,6 +85,7 @@ function buildRulesList() {
     deleteButton.setAttribute('label', gMessages.getString('config.rule.item.controls.delete.label'));
     deleteButton.setAttribute('tooltiptext', gMessages.getString('config.rule.item.controls.delete.tooltip'));
     deleteButton.setAttribute('style', 'min-width:0');
+    deleteButton.setAttribute('oncommand', 'delete(this.parentNode.rule)');
 
     item.appendChild(editButton);
     item.appendChild(deleteButton);
@@ -123,6 +124,15 @@ function edit(aRule) {
     return true;
   }
   return false;
+}
+
+function delete(aRule) {
+  var index = gRules.indexOf(aRule);
+  if (index < 0)
+    return;
+  gRules.splice(index, 1);
+  saveRules();
+  buildRulesList();
 }
 
 function saveRules() {
