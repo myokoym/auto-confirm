@@ -8,6 +8,7 @@
 <dialog id="auto-confirm-config-edit"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         title="&config.edit.title;"
+        title-template="&config.edit.title.template;"
         persist="width height"
         dialogbuttons="accept,cancel"
         onload="init();"

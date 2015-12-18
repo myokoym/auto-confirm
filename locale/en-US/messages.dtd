@@ -10,6 +10,7 @@
 
 
 <!ENTITY config.edit.title "New Rule">
+<!ENTITY config.edit.title.template "Edit Rule: &#37;s">
 
 <!ENTITY config.edit.name.label  "Name">
 <!ENTITY config.edit.name.duplicated "This name is duplicated!">

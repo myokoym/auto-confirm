@@ -9,6 +9,10 @@ var gActions;
 
 function init() {
   gRule = window.arguments[0] || {};
+  if (gRule.name) {
+    let title = document.documentElement.getAttribute('title-template');
+    document.title = title.replace(/%s/i, gRule.name);
+  }
 
   gActions = document.getElementById('actions');
 

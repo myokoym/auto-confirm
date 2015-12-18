@@ -10,6 +10,7 @@
 
 
 <!ENTITY config.edit.title "新しいルール">
+<!ENTITY config.edit.title.template "ルールの編集: &#37;s">
 
 <!ENTITY config.edit.name.label  "ルール名">
 <!ENTITY config.edit.name.duplicated "ルール名が重複しています！">
