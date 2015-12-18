@@ -5,8 +5,8 @@
 <?xml-stylesheet href="chrome://global/skin/"?>
 <!DOCTYPE prefwindow SYSTEM "chrome://auto-confirm/locale/messages.dtd">
 <prefwindow id="auto-confirm-config"
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-  title="&config.title;">
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            title="&config.title;">
   <prefpane id="prefpane-general" label="&config.general;">
     <preferences>
       <preference id="extensions.auto-confirm@myokoym.net.debug"
@@ -14,7 +14,7 @@
                   type="bool"/>
     </preferences>
     <checkbox id="extensions.auto-confirm@myokoym.net.debug-check"
-        preference="extensions.auto-confirm@myokoym.net.debug"
-        label="&config.debug;"/>
+              preference="extensions.auto-confirm@myokoym.net.debug"
+              label="&config.debug;"/>
   </prefpane>
 </prefwindow>
