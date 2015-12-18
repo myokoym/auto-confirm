@@ -124,10 +124,29 @@ function edit(aRule) {
                     aRule);
   if (aRule.changed) {
     console.log(aRule);
+    saveRules();
     buildRulesList();
     return true;
   }
   return false;
+}
+
+function saveRules() {
+  prefs.getDescendant(BASE + 'common.').forEach(function(aKey) {
+    prefs.clearPref(aKey);
+  });
+  prefs.getDescendant(BASE + 'general.').forEach(function(aKey) {
+    prefs.clearPref(aKey);
+  });
+  gRules.forEach(function(aRule) {
+    var base = BASE + aRule.group + '.' + encodeURIComponent(aRule.name) + '.';
+    Object.keys(aRule).forEach(function(aProperty) {
+      if (aProperty === 'name' ||
+          aProperty === 'group')
+        return;
+      prefs.setPref(base + aProperty, String(aRule[aProperty]))
+    });
+  });
 }
 
 function isRuleDuplicated(aName, aRule) {
