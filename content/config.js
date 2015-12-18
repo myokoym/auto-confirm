@@ -52,8 +52,8 @@ function buildRulesList() {
 
   var range = document.createRange();
   range.selectNodeContents(gRulesList);
+  range.setEndBefore(gRulesList.lastChild);
   range.deleteContents();
-  range.detach();
 
   gRules.sort(function(aA, aB) {
     return aA.name < aB.name ?  -1 :
@@ -100,11 +100,20 @@ function buildRulesList() {
       itemToBeSelected = item;
     }
   }
-  gRulesList.appendChild(fragment);
+  range.insertNode(fragment);
+  range.detach();
 
   if (itemToBeSelected) {
     gRulesList.selectedItem = itemToBeSelected;
   }
+}
+
+function addNewRule() {
+  var rule = {};
+  gRules.push(rule);
+  var saved = edit(rule);
+  if (!saved)
+    gRules.splice(gRules.indexOf(rule), 1);
 }
 
 function edit(aRule) {
@@ -116,7 +125,9 @@ function edit(aRule) {
   if (aRule.changed) {
     console.log(aRule);
     buildRulesList();
+    return true;
   }
+  return false;
 }
 
 function isRuleDuplicated(aName, aRule) {

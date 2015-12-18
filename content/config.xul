@@ -21,7 +21,12 @@
     <richlistbox id="rules"
              flex="1"
              style="min-height: 5em;"
-             ondblclick="if (this.selectedItem) edit(this.selectedItem.rule);">
+             ondblclick="if (this.selectedItem &amp;&amp; this.selectedItem.rule) edit(this.selectedItem.rule);">
+      <richlistitem id="add-rule-item">
+        <button label="&config.add.label;"
+                flex="1"
+                oncommand="addNewRule();"/>
+      </richlistitem>
     </richlistbox>
     <checkbox id="extensions.auto-confirm@myokoym.net.debug-check"
               preference="extensions.auto-confirm@myokoym.net.debug"
