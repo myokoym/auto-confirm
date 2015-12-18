@@ -13,6 +13,7 @@
 <!ENTITY config.edit.title.template "Edit Rule: &#37;s">
 
 <!ENTITY config.edit.name.label  "Name">
+<!ENTITY config.edit.name.blank  "You must give a name to this rule!">
 <!ENTITY config.edit.name.duplicated "This name is duplicated!">
 <!ENTITY config.edit.group.label "Type">
 <!ENTITY config.edit.group.common.label  "Common Dialog">

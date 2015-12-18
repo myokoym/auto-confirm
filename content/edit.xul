@@ -28,8 +28,14 @@
       </row>
       <row>
         <spacer/>
-        <label id="duplicated-name-message"
-               value="&config.edit.name.duplicated;"/>
+        <hbox>
+          <label id="blank-name-message"
+                 class="validation-error-message"
+                 value="&config.edit.name.blank;"/>
+          <label id="duplicated-name-message"
+                 class="validation-error-message"
+                 value="&config.edit.name.duplicated;"/>
+        </hbox>
       </row>
       <row align="center">
         <label value="&config.edit.group.label;"

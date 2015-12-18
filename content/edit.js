@@ -33,6 +33,7 @@ function init() {
   actions.forEach(actionAdd);
 
   onGroupChanged();
+  validateName();
 }
 
 function validateName() {
@@ -41,11 +42,15 @@ function validateName() {
   var accept = document.documentElement.getButton('accept');
   if (window.opener.isRuleDuplicated(name, gRule)) {
     accept.setAttribute('disabled', true);
-    document.documentElement.setAttribute('duplicated-name', true);
+    document.documentElement.setAttribute('validation-errors', 'duplicated-name');
+    return false;
+  } else if (name.trim() === '') {
+    accept.setAttribute('disabled', true);
+    document.documentElement.setAttribute('validation-errors', 'blank-name');
     return false;
   } else {
     accept.removeAttribute('disabled');
-    document.documentElement.removeAttribute('duplicated-name');
+    document.documentElement.removeAttribute('validation-errors');
     return true;
   }
 }

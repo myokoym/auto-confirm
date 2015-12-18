@@ -34,7 +34,7 @@
   visibility: hidden;
 }
 
-#duplicated-name-message {
+.validation-error-message {
   color: red;
   text-shadow: white 0 0 1px,
                white 0 0 1px,
@@ -42,7 +42,8 @@
   visibility: hidden;
 }
 
-:root[duplicated-name] #duplicated-name-message {
+:root[validation-errors~="blank-name"] #blank-name-message,
+:root[validation-errors~="duplicated-name"] #duplicated-name-message {
   visibility: visible;
 }
 
