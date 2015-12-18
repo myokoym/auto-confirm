@@ -7,16 +7,19 @@
 var BASE = 'extensions.auto-confirm@myokoym.net.';
 var { prefs } = Components.utils.import('resource://auto-confirm-resources/modules/lib/prefs.js', {});
 
-var gMessages;
 var gRules;
+
+var gMessages;
+var gRulesList;
 
 function initGeneral() {
   gMessages = document.getElementById('messages');
-  gRules = document.getElementById('rules');
+  gRulesList = document.getElementById('rules');
+  gRules = loadRules();
   buildRulesList();
 }
 
-function buildRulesList() {
+function loadRules() {
   var commonDialogRules = prefs.getChildren(BASE + 'common');
   var generalRules = prefs.getChildren(BASE + 'general');
 
@@ -30,32 +33,41 @@ function buildRulesList() {
                       1;
   });
 
-  var fragment = document.createDocumentFragment();
-  for (let base of allRules) {
+  return allRules.map(function(aBase) {
     let name = decodeURIComponent(base.replace(basePartMatcher, ''));
     let group = RegExp.$1;
+    return {
+      // common properties
+      name:    name,
+      group:   group,
+      title:   prefs.getPref(base + '.title') || '',
+      text:    prefs.getPref(base + '.text') || '',
+      action:  prefs.getPref(base + '.action') || '',
+      actions: prefs.getPref(base + '.actions') || '',
+      // commonDialog rule specific properties
+      type:    prefs.getPref(base + '.type') || '',
+      // general rule specific properties
+      url:     prefs.getPref(base + '.url') || ''
+    };
+  });
+}
 
+function buildRulesList() {
+
+  var fragment = document.createDocumentFragment();
+  for (let rule of gRules) {
     let item = document.createElement('richlistitem');
     item.setAttribute('orient', 'horizontal');
     item.setAttribute('align', 'center');
+    item.rule = rule;
 
-    // common properties
-    item.setAttribute('data-name', name);
-    item.setAttribute('data-group', group);
-    item.setAttribute('data-title', prefs.getPref(base + '.title') || '');
-    item.setAttribute('data-text', prefs.getPref(base + '.text') || '');
-    item.setAttribute('data-action', prefs.getPref(base + '.action') || '');
-    item.setAttribute('data-actions', prefs.getPref(base + '.actions') || '');
-
-    // commonDialog rule specific properties
-    item.setAttribute('data-type', prefs.getPref(base + '.type') || '');
-
-    // general rule specific properties
-    item.setAttribute('data-url', prefs.getPref(base + '.url') || '');
+    Object.keys(rule).forEach(function(aKey) {
+      item.setAttribute('data-' + aKey, rule[aKey]);
+    });
 
     let label = document.createElement('label');
-    label.setAttribute('value', name);
-    label.setAttribute('tooltiptext', name);
+    label.setAttribute('value', rule.name);
+    label.setAttribute('tooltiptext', rule.name);
     label.setAttribute('flex', 1);
     item.appendChild(label);
 
@@ -74,7 +86,7 @@ function buildRulesList() {
 
     fragment.appendChild(item);
   }
-  gRules.appendChild(fragment);
+  gRulesList.appendChild(fragment);
 }
 
 function shutdown() {
