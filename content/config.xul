@@ -9,7 +9,9 @@
             title="&config.title;"
             onunload="shutdown();">
   <prefpane id="prefpane-general"
-            label="&config.general;">
+            flex="1"
+            label="&config.general;"
+            onpaneload="initGeneral();">
     <preferences>
       <preference id="extensions.auto-confirm@myokoym.net.debug"
                   name="extensions.auto-confirm@myokoym.net.debug"
