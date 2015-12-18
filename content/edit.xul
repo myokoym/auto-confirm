@@ -97,53 +97,53 @@
   </grid>
   <groupbox flex="1">
     <caption label="&config.edit.actions.label;"/>
-          <richlistbox id="actions"
-                       flex="1"
-                       style="min-height: 3em">
-            <richlistitem id="action-add-item">
-              <button label="&config.edit.actions.control.add.label;"
-                      flex="1"
-                      oncommand="actionAdd();"/>
-            </richlistitem>
-          </richlistbox>
-  <richlistitem id="action-item-template"
-                class="action"
-                orient="horizontal"
-                align="center">
-    <menulist class="action-name-field"
-              value="accept">
-      <menupopup>
-        <menuitem value="accept"
-                  label="&config.edit.actions.type.accept.label;"/>
-        <menuitem value="cancel"
-                  label="&config.edit.actions.type.cancel.label;"/>
-        <menuitem value="check"
-                  label="&config.edit.actions.type.check.label;"/>
-        <menuitem value="uncheck"
-                  label="&config.edit.actions.type.uncheck.label;"/>
-        <menuitem value="push"
-                  label="&config.edit.actions.type.push.label;"/>
-        <menuitem value="click"
-                  label="&config.edit.actions.type.click.label;"/>
-        <menuitem value="input"
-                  label="&config.edit.actions.type.input.label;"/>
-      </menupopup>
-    </menulist>
-    <textbox class="action-params-field"
-             flex="1"/>
-    <button class="action-up"
-            label="&config.edit.actions.control.up.label;"
-            tooltiptext="&config.edit.actions.control.up.tooltip;"
-            oncommand="actionUp(this.parentNode);"/>
-    <button class="action-down"
-            label="&config.edit.actions.control.down.label;"
-            tooltiptext="&config.edit.actions.control.down.tooltip;"
-            oncommand="actionDown(this.parentNode);"/>
-    <button class="action-delete"
-            label="&config.edit.actions.control.delete.label;"
-            tooltiptext="&config.edit.actions.control.delete.tooltip;"
-            oncommand="actionDelete(this.parentNode);"/>
-  </richlistitem>
+    <richlistbox id="actions"
+                 flex="1"
+                 style="min-height: 3em">
+      <richlistitem id="action-add-item">
+        <button label="&config.edit.actions.control.add.label;"
+                flex="1"
+                oncommand="actionAdd();"/>
+      </richlistitem>
+    </richlistbox>
+    <richlistitem id="action-item-template"
+                  class="action"
+                  orient="horizontal"
+                  align="center">
+      <menulist class="action-name-field"
+                value="accept">
+        <menupopup>
+          <menuitem value="accept"
+                    label="&config.edit.actions.type.accept.label;"/>
+          <menuitem value="cancel"
+                    label="&config.edit.actions.type.cancel.label;"/>
+          <menuitem value="check"
+                    label="&config.edit.actions.type.check.label;"/>
+          <menuitem value="uncheck"
+                    label="&config.edit.actions.type.uncheck.label;"/>
+          <menuitem value="push"
+                    label="&config.edit.actions.type.push.label;"/>
+          <menuitem value="click"
+                    label="&config.edit.actions.type.click.label;"/>
+          <menuitem value="input"
+                    label="&config.edit.actions.type.input.label;"/>
+        </menupopup>
+      </menulist>
+      <textbox class="action-params-field"
+               flex="1"/>
+      <button class="action-up"
+              label="&config.edit.actions.control.up.label;"
+              tooltiptext="&config.edit.actions.control.up.tooltip;"
+              oncommand="actionUp(this.parentNode);"/>
+      <button class="action-down"
+              label="&config.edit.actions.control.down.label;"
+              tooltiptext="&config.edit.actions.control.down.tooltip;"
+              oncommand="actionDown(this.parentNode);"/>
+      <button class="action-delete"
+              label="&config.edit.actions.control.delete.label;"
+              tooltiptext="&config.edit.actions.control.delete.tooltip;"
+              oncommand="actionDelete(this.parentNode);"/>
+    </richlistitem>
   </groupbox>
   <script type="application/x-javascript"
           src="./edit.js"/>
