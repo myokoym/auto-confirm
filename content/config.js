@@ -7,9 +7,11 @@
 var BASE = 'extensions.auto-confirm@myokoym.net.';
 var { prefs } = Components.utils.import('resource://auto-confirm-resources/modules/lib/prefs.js', {});
 
+var gMessages;
 var gRules;
 
 function initGeneral() {
+  gMessages = document.getElementById('messages');
   gRules = document.getElementById('rules');
   buildRulesList();
 }
@@ -33,9 +35,9 @@ function buildRulesList() {
     let name = decodeURIComponent(base.replace(basePartMatcher, ''));
     let group = RegExp.$1;
 
-    let item = document.createElement('listitem');
-    let cell = document.createElement('listcell');
-    cell.setAttribute('label', name);
+    let item = document.createElement('richlistitem');
+    item.setAttribute('orient', 'horizontal');
+    item.setAttribute('align', 'center');
 
     // common properties
     item.setAttribute('data-name', name);
@@ -51,7 +53,25 @@ function buildRulesList() {
     // general rule specific properties
     item.setAttribute('data-url', prefs.getPref(base + '.url') || '');
 
-    item.appendChild(cell);
+    let label = document.createElement('label');
+    label.setAttribute('value', name);
+    label.setAttribute('tooltiptext', name);
+    label.setAttribute('flex', 1);
+    item.appendChild(label);
+
+    let editButton = document.createElement('button');
+    editButton.setAttribute('label', gMessages.getString('config.rule.item.controls.edit.label'));
+    editButton.setAttribute('tooltiptext', gMessages.getString('config.rule.item.controls.edit.tooltip'));
+    editButton.setAttribute('style', 'min-width:0');
+
+    let deleteButton = document.createElement('button');
+    deleteButton.setAttribute('label', gMessages.getString('config.rule.item.controls.delete.label'));
+    deleteButton.setAttribute('tooltiptext', gMessages.getString('config.rule.item.controls.delete.tooltip'));
+    deleteButton.setAttribute('style', 'min-width:0');
+
+    item.appendChild(editButton);
+    item.appendChild(deleteButton);
+
     fragment.appendChild(item);
   }
   gRules.appendChild(fragment);

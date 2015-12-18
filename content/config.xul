@@ -18,19 +18,17 @@
                   name="extensions.auto-confirm@myokoym.net.debug"
                   type="bool"/>
     </preferences>
-    <listbox id="rules"
+    <richlistbox id="rules"
              flex="1"
              style="min-height: 5em;">
-      <listhead>
-        <listheader label="&config.rules.caption.name;"/>
-      </listhead>
-      <listcols>
-        <listcol flex="1"/>
-      </listcols>
-    </listbox>
+    </richlistbox>
     <checkbox id="extensions.auto-confirm@myokoym.net.debug-check"
               preference="extensions.auto-confirm@myokoym.net.debug"
               label="&config.debug;"/>
+    <stringbundleset>
+      <stringbundle id="messages"
+                    src="chrome://auto-confirm/locale/messages.properties"/>
+    </stringbundleset>
     <script type="application/x-javascript"
             src="./config.js"/>
   </prefpane>

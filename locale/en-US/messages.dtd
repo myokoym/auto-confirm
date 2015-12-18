@@ -4,6 +4,4 @@
 <!ENTITY config.title       "Configuration of Auto Confrim">
 <!ENTITY config.general     "General">
 
-<!ENTITY config.rules.caption.name "Rule">
-
 <!ENTITY config.debug     "Enable debug logs">
