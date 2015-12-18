@@ -12,7 +12,7 @@
         dialogbuttons="accept,cancel"
         onload="init();"
         ondialogaccept="return onAccept();">
-  <grid flex="1">
+  <grid>
     <columns>
       <column/>
       <column flex="1"
@@ -74,6 +74,15 @@
                control="url-field"/>
         <textbox id="url-field"/>
       </row>
+    </rows>
+  </grid>
+  <grid>
+    <columns>
+      <column/>
+      <column flex="1"
+              style="min-width:10em"/>
+    </columns>
+    <rows flex="1">
       <row align="center">
         <label value="&config.edit.title.label;"
                control="title-field"/>
@@ -84,11 +93,10 @@
                control="text-field"/>
         <textbox id="text-field"/>
       </row>
-      <row align="stretch"
-           flex="1">
-        <vbox pack="start">
-          <label value="&config.edit.actions.label;"/>
-        </vbox>
+    </rows>
+  </grid>
+  <groupbox flex="1">
+    <caption label="&config.edit.actions.label;"/>
           <richlistbox id="actions"
                        flex="1"
                        style="min-height: 3em">
@@ -98,9 +106,6 @@
                       oncommand="actionAdd();"/>
             </richlistitem>
           </richlistbox>
-      </row>
-    </rows>
-  </grid>
   <richlistitem id="action-item-template"
                 class="action"
                 orient="horizontal"
@@ -139,6 +144,7 @@
             tooltiptext="&config.edit.actions.control.delete.tooltip;"
             oncommand="actionDelete(this.parentNode);"/>
   </richlistitem>
+  </groupbox>
   <script type="application/x-javascript"
           src="./edit.js"/>
 </dialog>
