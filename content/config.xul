@@ -7,7 +7,8 @@
 <prefwindow id="auto-confirm-config"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             title="&config.title;">
-  <prefpane id="prefpane-general" label="&config.general;">
+  <prefpane id="prefpane-general"
+            label="&config.general;">
     <preferences>
       <preference id="extensions.auto-confirm@myokoym.net.debug"
                   name="extensions.auto-confirm@myokoym.net.debug"
