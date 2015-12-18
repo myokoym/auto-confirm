@@ -22,3 +22,18 @@
 <!ENTITY config.edit.url.label   "Window's URL">
 <!ENTITY config.edit.title.label "Having window title includes:">
 <!ENTITY config.edit.text.label  "Having any message or label including:">
+<!ENTITY config.edit.actions.label "Actions">
+<!ENTITY config.edit.actions.type.accept.label  "Accept">
+<!ENTITY config.edit.actions.type.cancel.label  "Cancel">
+<!ENTITY config.edit.actions.type.check.label   "Check">
+<!ENTITY config.edit.actions.type.uncheck.label "Uncheck">
+<!ENTITY config.edit.actions.type.push.label    "Push a button">
+<!ENTITY config.edit.actions.type.click.label   "Click">
+<!ENTITY config.edit.actions.type.input.label   "Input text">
+<!ENTITY config.edit.actions.control.add.label      "Add New Action">
+<!ENTITY config.edit.actions.control.up.label       "▲">
+<!ENTITY config.edit.actions.control.up.tooltip     "Move Up">
+<!ENTITY config.edit.actions.control.down.label     "▼">
+<!ENTITY config.edit.actions.control.down.tooltip   "Move Down">
+<!ENTITY config.edit.actions.control.delete.label   "×">
+<!ENTITY config.edit.actions.control.delete.tooltip "Delete">

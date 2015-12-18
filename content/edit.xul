@@ -3,6 +3,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <?xml-stylesheet href="chrome://global/skin/"?>
+<?xml-stylesheet href="./edit.css"?>
 <!DOCTYPE dialog SYSTEM "chrome://auto-confirm/locale/messages.dtd">
 <dialog id="auto-confirm-config-edit"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
@@ -17,7 +18,7 @@
       <column flex="1"
               style="min-width:10em"/>
     </columns>
-    <rows>
+    <rows flex="1">
       <row align="center">
         <label value="&config.edit.name.label;"
                control="name-field"/>
@@ -77,8 +78,60 @@
                control="text-field"/>
         <textbox id="text-field"/>
       </row>
+      <row align="stretch"
+           flex="1">
+        <vbox pack="start">
+          <label value="&config.edit.actions.label;"/>
+        </vbox>
+          <richlistbox id="actions"
+                       flex="1"
+                       style="min-height: 3em">
+            <richlistitem id="action-add-item">
+              <button label="&config.edit.actions.control.add.label;"
+                      flex="1"
+                      oncommand="actionAdd();"/>
+            </richlistitem>
+          </richlistbox>
+      </row>
     </rows>
   </grid>
+  <richlistitem id="action-item-template"
+                orient="horizontal"
+                align="center">
+    <menulist class="action-name-field"
+              value="accept">
+      <menupopup>
+        <menuitem value="accept"
+                  label="&config.edit.actions.type.accept.label;"/>
+        <menuitem value="cancel"
+                  label="&config.edit.actions.type.cancel.label;"/>
+        <menuitem value="check"
+                  label="&config.edit.actions.type.check.label;"/>
+        <menuitem value="uncheck"
+                  label="&config.edit.actions.type.uncheck.label;"/>
+        <menuitem value="push"
+                  label="&config.edit.actions.type.push.label;"/>
+        <menuitem value="click"
+                  label="&config.edit.actions.type.click.label;"/>
+        <menuitem value="input"
+                  label="&config.edit.actions.type.input.label;"/>
+      </menupopup>
+    </menulist>
+    <textbox class="action-params-field"
+             flex="1"/>
+    <button class="action-up"
+            label="&config.edit.actions.control.up.label;"
+            tooltiptext="&config.edit.actions.control.up.tooltip;"
+            oncommand="actionUp(this.parentNode);"/>
+    <button class="action-down"
+            label="&config.edit.actions.control.down.label;"
+            tooltiptext="&config.edit.actions.control.down.tooltip;"
+            oncommand="actionDown(this.parentNode);"/>
+    <button class="action-delete"
+            label="&config.edit.actions.control.delete.label;"
+            tooltiptext="&config.edit.actions.control.delete.tooltip;"
+            oncommand="actionDelete(this.parentNode);"/>
+  </richlistitem>
   <script type="application/x-javascript"
           src="./edit.js"/>
 </dialog>

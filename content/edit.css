@@ -1,0 +1,29 @@
+/*
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+
+#action-item-template {
+  display: none;
+}
+
+#actions button {
+  min-width: 0;
+}
+
+.group-common,
+.group-general {
+  visibility: collapse;
+}
+:root[group-type="common"] .group-common,
+:root[group-type="general"] .group-general {
+  visibility: visible;
+}
+
+.action-name-field[value="accept"] ~ .action-params-field,
+.action-name-field[value="cancel"] ~ .action-params-field,
+:root[group-type="common"] .action-name-field[value="check"] ~ .action-params-field,
+:root[group-type="common"] .action-name-field[value="uncheck"] ~ .action-params-field {
+  visibility: hidden;
+}
