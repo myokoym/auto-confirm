@@ -15,7 +15,7 @@ function init() {
   Object.keys(gRule).forEach(function(aKey) {
     var value = gRule[aKey];
     var field = document.getElementById(aKey + '-field');
-    if (field)
+    if (field && value)
       field.value = value;
   });
 
@@ -107,6 +107,14 @@ function onAccept() {
    'text'].forEach(function(aProperty) {
     gRule[aProperty] = document.getElementById(aProperty + '-field').value;
   });
+  switch (gRule.group) {
+  case 'common':
+    gRule.url = '';
+    break;
+  case 'general':
+    gRule.type = '';
+    break;
+  }
 
   var actions = document.querySelectorAll('#actions richlistitem.action');
   if (actions.length === 0) {
