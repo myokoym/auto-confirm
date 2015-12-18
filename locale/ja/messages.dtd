@@ -1,5 +1,5 @@
-<!ENTITY config.title       "設定ダイアログ">
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!ENTITY config.title       "Auto Confrimの設定">
 <!ENTITY config.general     "全般">
-<!ENTITY config.testBoolean "真偽値の設定">
-<!ENTITY config.appearance  "外観">
-<!ENTITY config.testInteger "整数値の設定">
