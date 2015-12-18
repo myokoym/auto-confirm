@@ -69,10 +69,6 @@ function buildRulesList() {
     item.setAttribute('align', 'center');
     item.rule = rule;
 
-    Object.keys(rule).forEach(function(aKey) {
-      item.setAttribute('data-' + aKey, rule[aKey]);
-    });
-
     let label = document.createElement('label');
     label.setAttribute('value', rule.name);
     label.setAttribute('tooltiptext', rule.name);
