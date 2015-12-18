@@ -4,4 +4,6 @@
 <!ENTITY config.title       "Auto Confrimの設定">
 <!ENTITY config.general     "全般">
 
+<!ENTITY config.rules.caption.name "ルール">
+
 <!ENTITY config.debug     "デバッグ用のログを出力する">
