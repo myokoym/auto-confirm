@@ -88,7 +88,7 @@ function actionUp(aItem) {
 function actionDown(aItem) {
   if (aItem.nextSibling == gActions.lastChild)
     return;
-  gActions.insertBefore(aItem, aItem.nextSibling);
+  gActions.insertBefore(aItem, aItem.nextSibling.nextSibling);
 }
 
 function actionDelete(aItem) {
