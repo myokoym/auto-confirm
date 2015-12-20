@@ -82,13 +82,13 @@ function actionAdd(aAction) {
 function actionUp(aItem) {
   if (aItem == gActions.firstChild)
     return;
-  gActions.isnertBefore(aItem, aItem.previousSibling);
+  gActions.insertBefore(aItem, aItem.previousSibling);
 }
 
 function actionDown(aItem) {
   if (aItem.nextSibling == gActions.lastChild)
     return;
-  gActions.isnertBefore(aItem, aItem.nextSibling);
+  gActions.insertBefore(aItem, aItem.nextSibling);
 }
 
 function actionDelete(aItem) {
