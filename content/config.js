@@ -105,6 +105,11 @@ function buildRulesList() {
   }
 }
 
+function onRuleDoubleClick() {
+  if (gRulesList.selectedItem && gRulesList.selectedItem.rule)
+    editRule(gRulesList.selectedItem.rule);
+}
+
 function addNewRule() {
   var rule = {};
   gRules.push(rule);
