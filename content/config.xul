@@ -21,7 +21,7 @@
     <richlistbox id="rules"
                  flex="1"
                  style="min-height: 5em;"
-                 ondblclick="if (this.selectedItem &amp;&amp; this.selectedItem.rule) edit(this.selectedItem.rule);">
+                 ondblclick="if (this.selectedItem &amp;&amp; this.selectedItem.rule) editRule(this.selectedItem.rule);">
       <richlistitem id="add-rule-item">
         <button label="&config.add.label;"
                 flex="1"
