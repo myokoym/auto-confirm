@@ -4,6 +4,8 @@ Pushs any confirmation button automatically.
 
 ## Usage
 
+Edit preferences by configuration window.
+
 ## Examples
 
 ### Common dialog
