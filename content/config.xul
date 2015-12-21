@@ -1,69 +1,41 @@
 <?xml version="1.0"?>
-<!--
- - @fileOverview configuration dialog for restartless addons
- - @author       YUKI "Piro" Hiroshi
- - @version      2
- -
- - @license
- -   The MIT License, Copyright (c) 2010 YUKI "Piro" Hiroshi.
- -   https://github.com/piroor/restartless/blob/master/license.txt
- - @url http://github.com/piroor/restartless
- - -->
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <?xml-stylesheet href="chrome://global/skin/"?>
-<!DOCTYPE prefwindow SYSTEM "chrome://restartless/locale/messages.dtd">
-<prefwindow id="restartless-config"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	title="&config.title;">
-
-	<prefpane id="prefpane-general" label="&config.general;"
-		onpaneload="initGeneralPane();">
-		<preferences>
-			<preference id="testBoolean"
-				name="extensions.restartless@piro.sakura.ne.jp.testBoolean"
-				type="bool"/>
-		</preferences>
-
-
-		<checkbox id="testBoolean-checkbox"
-			label="&config.testBoolean;"
-			preference="testBoolean"/>
-
-	</prefpane>
-
-	<prefpane id="prefpane-appearance" label="&config.appearance;">
-		<preferences>
-			<preference id="testInteger"
-				name="extensions.restartless@piro.sakura.ne.jp.testInteger"
-				type="int"/>
-		</preferences>
-
-
-		<hbox align="center">
-			<label id="testInteger-label"
-				control="testInteger-textbox"
-				value="&config.testInteger;"/>
-			<textbox id="testInteger-textbox"
-				type="number"
-				preference="testInteger"/>
-		</hbox>
-		<label value="{{ messages.getString('config.labelFromProperties')
-		                 /* this is resolved by labelBundle.js */ }}"/>
-
-	</prefpane>
-
-	<script type="application/javascript"><![CDATA[
-		function initGeneralPane() {
-		}
-	]]></script>
-
-	<!-- easyTemplate.js must be loaded at the end, after all other scripts are loaded -->
-	<stringbundleset>
-		<stringbundle id="messages" src="chrome://restartless/locale/messages.properties"/>
-	</stringbundleset>
-	<script type="application/javascript"><![CDATA[
-		Components.classes['@mozilla.org/moz/jssubscript-loader;1']
-			.getService(Components.interfaces.mozIJSSubScriptLoader)
-			.loadSubScript('resource://restartless-resources/modules/lib/easyTemplate.js', window);
-		easyTemplate.apply();
-	]]></script>
+<!DOCTYPE prefwindow SYSTEM "chrome://auto-confirm/locale/messages.dtd">
+<prefwindow id="auto-confirm-config"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            title="&config.title;"
+            onunload="shutdown();"
+            persist="width height">
+  <prefpane id="prefpane-general"
+            flex="1"
+            label="&config.general;"
+            onpaneload="initGeneral();">
+    <preferences>
+      <preference id="extensions.auto-confirm@myokoym.net.debug"
+                  name="extensions.auto-confirm@myokoym.net.debug"
+                  type="bool"/>
+    </preferences>
+    <richlistbox id="rules"
+                 flex="1"
+                 style="min-height: 5em;"
+                 ondblclick="onRuleDoubleClick();">
+      <richlistitem id="add-rule-item">
+        <button label="&config.add.label;"
+                flex="1"
+                oncommand="addNewRule();"/>
+      </richlistitem>
+    </richlistbox>
+    <checkbox id="extensions.auto-confirm@myokoym.net.debug-check"
+              preference="extensions.auto-confirm@myokoym.net.debug"
+              label="&config.debug;"/>
+    <stringbundleset>
+      <stringbundle id="messages"
+                    src="chrome://auto-confirm/locale/messages.properties"/>
+    </stringbundleset>
+    <script type="application/x-javascript"
+            src="./config.js"/>
+  </prefpane>
 </prefwindow>
