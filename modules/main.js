@@ -143,7 +143,7 @@ function handleGeneralWindow(aWindow)
         let actions = config.actions;
         if (actions)
           processActions(aWindow, actions);
-      }, 0);
+      }, 500);
       return;
     }
     fromIndex = index + 1;
