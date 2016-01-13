@@ -103,7 +103,7 @@
     </rows>
   </grid>
   <groupbox flex="1">
-    <hbox align="end">
+    <hbox align="center">
       <caption label="&config.edit.actions.label;"/>
       <button label="&config.edit.capture.label;"
               oncommand="addNewRule();"/>
