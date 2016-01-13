@@ -105,7 +105,7 @@
   <groupbox flex="1">
     <hbox align="end">
       <caption label="&config.edit.actions.label;"/>
-      <button label="&config.add.label;"
+      <button label="&config.edit.capture.label;"
               oncommand="addNewRule();"/>
     </hbox>
     <richlistbox id="actions"

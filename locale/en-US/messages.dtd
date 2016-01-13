@@ -27,6 +27,7 @@
 <!ENTITY config.edit.url.label   "Window's URL">
 <!ENTITY config.edit.title.label "Having window title includes:">
 <!ENTITY config.edit.text.label  "Having any message or label including:">
+<!ENTITY config.edit.capture.label "Capture actual operation">
 <!ENTITY config.edit.actions.label "Actions">
 <!ENTITY config.edit.actions.type.accept.label  "Accept">
 <!ENTITY config.edit.actions.type.cancel.label  "Cancel">

@@ -27,6 +27,7 @@
 <!ENTITY config.edit.url.label   "ウィンドウのURL">
 <!ENTITY config.edit.title.label "以下をウィンドウのタイトルに含む">
 <!ENTITY config.edit.text.label  "以下をウィンドウ内の文字列に含む">
+<!ENTITY config.edit.capture.label "実際の操作を記録する">
 <!ENTITY config.edit.actions.label "行う操作">
 <!ENTITY config.edit.actions.type.accept.label  "OK">
 <!ENTITY config.edit.actions.type.cancel.label  "キャンセル">
