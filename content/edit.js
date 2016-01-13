@@ -60,6 +60,44 @@ function onGroupChanged() {
   document.documentElement.setAttribute('group-type', group);
 }
 
+function captureActualOperation(aAction) {
+  var type = document.getElementById('type-field');
+  console.log(type.value);
+  switch (type.value) {
+  case 'alert':
+    alert();
+    actionAdd();
+    break;
+  case 'confirm':
+    var result = confirm();
+    console.log(result);
+    if (result) {
+      actionAdd('accept');
+    } else {
+      actionAdd('cancel');
+    }
+    break;
+  case 'confirmEx':
+    // TODO
+    //confirmEx();
+    break;
+  case 'prompt':
+    var result = prompt();
+    console.log(result);
+    if (result === null) {
+      actionAdd('cancel');
+    } else {
+      actionAdd('input;' + result);
+      actionAdd('accept');
+    }
+    break;
+  case 'select':
+    // TODO
+    //select();
+    break;
+  }
+}
+
 function actionAdd(aAction) {
   var template = document.getElementById('action-item-template');
   var item = template.cloneNode(true);
