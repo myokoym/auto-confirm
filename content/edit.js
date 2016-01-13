@@ -5,6 +5,7 @@
 */
 
 var gRule;
+var gMessages;
 var gActions;
 
 function init() {
@@ -14,6 +15,7 @@ function init() {
     document.title = title.replace(/%s/i, gRule.name);
   }
 
+  gMessages = document.getElementById('messages');
   gActions = document.getElementById('actions');
 
   Object.keys(gRule).forEach(function(aKey) {

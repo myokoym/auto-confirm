@@ -159,6 +159,10 @@
               oncommand="actionDelete(this.parentNode);"/>
     </richlistitem>
   </groupbox>
+  <stringbundleset>
+    <stringbundle id="messages"
+                  src="chrome://auto-confirm/locale/messages.properties"/>
+  </stringbundleset>
   <script type="application/x-javascript"
           src="./edit.js"/>
 </dialog>
