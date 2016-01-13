@@ -8,6 +8,7 @@
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             title="&config.title;"
             onunload="shutdown();"
+            style="width: 32em; height: 24em;"
             persist="width height">
   <prefpane id="prefpane-general"
             flex="1"
