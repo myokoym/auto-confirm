@@ -104,7 +104,7 @@
   </grid>
   <groupbox flex="1">
     <hbox>
-    <caption label="&config.edit.actions.label;"/>
+      <caption label="&config.edit.actions.label;"/>
       <button label="&config.add.label;"
               oncommand="addNewRule();"/>
     </hbox>
