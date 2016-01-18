@@ -4,9 +4,18 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+var BASE = 'extensions.auto-confirm@myokoym.net.';
+var { prefs } = Components.utils.import('resource://auto-confirm-resources/modules/lib/prefs.js', {});
+
 var gRule;
 var gMessages;
 var gActions;
+
+function log(message) {
+  if (prefs.getPref(BASE + 'debug')) {
+    console.log("auto-confirm edit: " + message);
+  }
+}
 
 function init() {
   gRule = window.arguments[0] || {};
@@ -66,7 +75,7 @@ function captureActualOperation(aAction) {
   var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                           .getService(Components.interfaces.nsIPromptService);
   var type = document.getElementById('type-field');
-  console.log(type.value);
+  log(type.value);
   var title = gMessages.getString('config.edit.capture.dialog.title');
   var description = gMessages.getString('config.edit.capture.dialog.description');
   var checkboxLabel = gMessages.getString('config.edit.capture.dialog.checkbox');
@@ -95,7 +104,7 @@ function captureActualOperation(aAction) {
                                       description,
                                       checkboxLabel,
                                       checked);
-    console.log(result);
+    log(result);
     if (checked.value) {
       actionAdd('check');
     }
@@ -118,7 +127,7 @@ function captureActualOperation(aAction) {
                                                buttonLabels[2],
                                                null,
                                                checked);
-    console.log(pressedButtonIndex);
+    log(pressedButtonIndex);
     if (checked.value) {
       actionAdd('check');
     }
@@ -131,7 +140,7 @@ function captureActualOperation(aAction) {
                                 inputMessage,
                                 checkboxLabel,
                                 checked);
-    console.log(result);
+    log(result);
     if (inputMessage.value) {
       actionAdd('input;' + inputMessage.value);
     }
