@@ -66,11 +66,18 @@ var listener = {
 };
 prefs.addPrefListener(listener);
 
+prefs.setPref(BASE + 'editing', false);
+
 load('lib/WindowManager');
 
 var global = this;
 function handleWindow(aWindow)
 {
+  log(prefs.getPref(BASE + 'editing'));
+  if (prefs.getPref(BASE + 'editing')) {
+    return;
+  }
+
   log("handleWindow");
   var doc = aWindow.document;
   if (doc.documentElement.localName === 'dialog' &&
@@ -312,6 +319,7 @@ WindowManager.addHandler(handleWindow);
 
 function shutdown()
 {
+  prefs.setPref(BASE + 'editing', false)
   prefs.removePrefListener(listener);
   WindowManager = undefined;
   global = undefined;

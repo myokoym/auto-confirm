@@ -17,6 +17,7 @@ function initGeneral() {
   gRulesList = document.getElementById('rules');
   gRules = loadRules();
   buildRulesList();
+  prefs.setPref(BASE + 'editing', true);
 }
 
 function loadRules() {
@@ -172,5 +173,6 @@ function isRuleDuplicated(aName, aRule) {
 }
 
 function shutdown() {
+  prefs.setPref(BASE + 'editing', false);
   Components.utils.unload('resource://auto-confirm-resources/modules/lib/prefs.js');
 }
