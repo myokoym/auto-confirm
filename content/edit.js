@@ -71,6 +71,7 @@ function captureActualOperation(aAction) {
   var description = gMessages.getString('config.edit.capture.dialog.description');
   var checkboxLabel = gMessages.getString('config.edit.capture.dialog.checkbox');
   var checked = {value: false};
+  var inputMessage = {value: ''};
   var buttonLabels = [];
   buttonLabels[0] = gMessages.getString('config.edit.capture.dialog.button.0');
   buttonLabels[1] = gMessages.getString('config.edit.capture.dialog.button.1');
@@ -124,13 +125,23 @@ function captureActualOperation(aAction) {
     actionAdd('push;' + buttonLabels[pressedButtonIndex]);
     break;
   case 'prompt':
-    var result = prompt();
+    var result = prompts.prompt(window,
+                                title,
+                                description,
+                                inputMessage,
+                                checkboxLabel,
+                                checked);
     console.log(result);
-    if (result === null) {
-      actionAdd('cancel');
-    } else {
-      actionAdd('input;' + result);
+    if (inputMessage.value) {
+      actionAdd('input;' + inputMessage.value);
+    }
+    if (checked.value) {
+      actionAdd('check');
+    }
+    if (result) {
       actionAdd('accept');
+    } else {
+      actionAdd('cancel');
     }
     break;
   case 'select':
