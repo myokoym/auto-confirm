@@ -99,7 +99,7 @@ function handleCommonDialog(aWindow)
   var matched = false;
   for (let config of configs) {
     let typeMatcher = prefs.getPref(config + '.type');
-    if (typeMatcher !== args.promptType)
+    if (typeMatcher !== normalizeType(args.promptType))
       continue;
     let textMatcher = prefs.getPref(config + '.text');
     if (textMatcher && !args.text.match(textMatcher))
@@ -119,6 +119,18 @@ function handleCommonDialog(aWindow)
   }
   if (!matched)
     log("no match");
+}
+
+function normalizeType(aType)
+{
+  switch (aType) {
+    case 'alertCheck':
+      return 'alert';
+    case 'confirmCheck':
+      return 'confirm';
+    default:
+      return aType;
+  }
 }
 
 function handleGeneralWindow(aWindow)
