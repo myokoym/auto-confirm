@@ -4,7 +4,10 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+var { log } = Components.utils.import('resource://auto-confirm-resources/modules/log.js', {});
+
 var gRule;
+var gMessages;
 var gActions;
 
 function init() {
@@ -14,6 +17,7 @@ function init() {
     document.title = title.replace(/%s/i, gRule.name);
   }
 
+  gMessages = document.getElementById('messages');
   gActions = document.getElementById('actions');
 
   Object.keys(gRule).forEach(function(aKey) {
@@ -58,6 +62,111 @@ function validateName() {
 function onGroupChanged() {
   var group = document.getElementById('group-field').value;
   document.documentElement.setAttribute('group-type', group);
+  var button = document.getElementById('capture-button');
+  button.disabled = (group !== 'common');
+}
+
+function captureActualOperation(aAction) {
+  let prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                          .getService(Components.interfaces.nsIPromptService);
+  let type = document.getElementById('type-field');
+  log(type.value);
+
+  let title = gMessages.getString('config.edit.capture.dialog.title');
+  let description = gMessages.getString('config.edit.capture.dialog.description');
+  let checkboxLabel = gMessages.getString('config.edit.capture.dialog.checkbox');
+  let checked = {value: false};
+
+  switch (type.value) {
+  case 'alert':
+    {
+      prompts.alertCheck(window,
+                         title,
+                         description,
+                         checkboxLabel,
+                         checked);
+      log('checked: ' + checked.value);
+      if (checked.value) {
+        actionAdd('check');
+      }
+      actionAdd('accept');
+    }
+    break;
+  case 'confirm':
+    {
+      let result = prompts.confirmCheck(window,
+                                        title,
+                                        description,
+                                        checkboxLabel,
+                                        checked);
+      log('result: ' + result);
+      log('checked: ' + checked.value);
+      if (checked.value) {
+        actionAdd('check');
+      }
+      if (result) {
+        actionAdd('accept');
+      } else {
+        actionAdd('cancel');
+      }
+    }
+    break;
+  case 'confirmEx':
+    {
+      let buttonLabels = [];
+      buttonLabels[0] = gMessages.getString('config.edit.capture.dialog.button.0');
+      buttonLabels[1] = gMessages.getString('config.edit.capture.dialog.button.1');
+      buttonLabels[2] = gMessages.getString('config.edit.capture.dialog.button.2');
+      let flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                  prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                  prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+      let pressedButtonIndex = prompts.confirmEx(window,
+                                                 title,
+                                                 description,
+                                                 flags,
+                                                 buttonLabels[0],
+                                                 buttonLabels[1],
+                                                 buttonLabels[2],
+                                                 null,
+                                                 checked);
+      log('pressedButtonIndex:' + pressedButtonIndex);
+      log('checked: ' + checked.value);
+      if (checked.value) {
+        actionAdd('check');
+      }
+      actionAdd('push;' + buttonLabels[pressedButtonIndex]);
+    }
+    break;
+  case 'prompt':
+    {
+      let inputMessage = {value: ''};
+      let result = prompts.prompt(window,
+                                  title,
+                                  description,
+                                  inputMessage,
+                                  checkboxLabel,
+                                  checked);
+      log('result:' + result);
+      log('inputMessage: ' + inputMessage.value);
+      log('checked: ' + checked.value);
+      if (inputMessage.value) {
+        actionAdd('input;' + inputMessage.value);
+      }
+      if (checked.value) {
+        actionAdd('check');
+      }
+      if (result) {
+        actionAdd('accept');
+      } else {
+        actionAdd('cancel');
+      }
+    }
+    break;
+  case 'select':
+    // TODO
+    //select();
+    break;
+  }
 }
 
 function actionAdd(aAction) {

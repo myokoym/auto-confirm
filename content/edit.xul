@@ -103,7 +103,12 @@
     </rows>
   </grid>
   <groupbox flex="1">
-    <caption label="&config.edit.actions.label;"/>
+    <hbox align="center">
+      <caption label="&config.edit.actions.label;"/>
+      <button label="&config.edit.capture.label;"
+              id="capture-button"
+              oncommand="captureActualOperation();"/>
+    </hbox>
     <richlistbox id="actions"
                  flex="1"
                  style="min-height: 3em">
@@ -155,6 +160,10 @@
               oncommand="actionDelete(this.parentNode);"/>
     </richlistitem>
   </groupbox>
+  <stringbundleset>
+    <stringbundle id="messages"
+                  src="chrome://auto-confirm/locale/messages.properties"/>
+  </stringbundleset>
   <script type="application/x-javascript"
           src="./edit.js"/>
 </dialog>

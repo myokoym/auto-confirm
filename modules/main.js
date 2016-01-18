@@ -11,11 +11,7 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'debug', false);
 }
 
-function log(message) {
-  if (prefs.getPref(BASE + 'debug')) {
-    console.log("auto-confirm: " + message);
-  }
-}
+var log = require('log').log;
 
 var generalUrls = [];
 var generalConfigs = [];
@@ -66,11 +62,18 @@ var listener = {
 };
 prefs.addPrefListener(listener);
 
+prefs.setPref(BASE + 'editing', false);
+
 load('lib/WindowManager');
 
 var global = this;
 function handleWindow(aWindow)
 {
+  log(prefs.getPref(BASE + 'editing'));
+  if (prefs.getPref(BASE + 'editing')) {
+    return;
+  }
+
   log("handleWindow");
   var doc = aWindow.document;
   if (doc.documentElement.localName === 'dialog' &&
@@ -99,7 +102,7 @@ function handleCommonDialog(aWindow)
   var matched = false;
   for (let config of configs) {
     let typeMatcher = prefs.getPref(config + '.type');
-    if (typeMatcher !== args.promptType)
+    if (typeMatcher !== normalizeType(args.promptType))
       continue;
     let textMatcher = prefs.getPref(config + '.text');
     if (textMatcher && !args.text.match(textMatcher))
@@ -119,6 +122,18 @@ function handleCommonDialog(aWindow)
   }
   if (!matched)
     log("no match");
+}
+
+function normalizeType(aType)
+{
+  switch (aType) {
+    case 'alertCheck':
+      return 'alert';
+    case 'confirmCheck':
+      return 'confirm';
+    default:
+      return aType;
+  }
 }
 
 function handleGeneralWindow(aWindow)
@@ -300,6 +315,7 @@ WindowManager.addHandler(handleWindow);
 
 function shutdown()
 {
+  prefs.setPref(BASE + 'editing', false)
   prefs.removePrefListener(listener);
   WindowManager = undefined;
   global = undefined;
