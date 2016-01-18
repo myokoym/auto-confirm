@@ -72,23 +72,19 @@ function onGroupChanged() {
 }
 
 function captureActualOperation(aAction) {
-  var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+  let prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                           .getService(Components.interfaces.nsIPromptService);
-  var type = document.getElementById('type-field');
+  let type = document.getElementById('type-field');
   log(type.value);
 
-  var title = gMessages.getString('config.edit.capture.dialog.title');
-  var description = gMessages.getString('config.edit.capture.dialog.description');
-  var checkboxLabel = gMessages.getString('config.edit.capture.dialog.checkbox');
-  var checked = {value: false};
-  var inputMessage = {value: ''};
-  var buttonLabels = [];
-  buttonLabels[0] = gMessages.getString('config.edit.capture.dialog.button.0');
-  buttonLabels[1] = gMessages.getString('config.edit.capture.dialog.button.1');
-  buttonLabels[2] = gMessages.getString('config.edit.capture.dialog.button.2');
+  let title = gMessages.getString('config.edit.capture.dialog.title');
+  let description = gMessages.getString('config.edit.capture.dialog.description');
+  let checkboxLabel = gMessages.getString('config.edit.capture.dialog.checkbox');
+  let checked = {value: false};
 
   switch (type.value) {
   case 'alert':
+    {
     prompts.alertCheck(window,
                        title,
                        description,
@@ -99,9 +95,11 @@ function captureActualOperation(aAction) {
       actionAdd('check');
     }
     actionAdd('accept');
+    }
     break;
   case 'confirm':
-    var result = prompts.confirmCheck(window,
+    {
+    let result = prompts.confirmCheck(window,
                                       title,
                                       description,
                                       checkboxLabel,
@@ -116,12 +114,18 @@ function captureActualOperation(aAction) {
     } else {
       actionAdd('cancel');
     }
+    }
     break;
   case 'confirmEx':
-    var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+    {
+    let buttonLabels = [];
+    buttonLabels[0] = gMessages.getString('config.edit.capture.dialog.button.0');
+    buttonLabels[1] = gMessages.getString('config.edit.capture.dialog.button.1');
+    buttonLabels[2] = gMessages.getString('config.edit.capture.dialog.button.2');
+    let flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
                 prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
                 prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
-    var pressedButtonIndex = prompts.confirmEx(window,
+    let pressedButtonIndex = prompts.confirmEx(window,
                                                title,
                                                description,
                                                flags,
@@ -136,9 +140,12 @@ function captureActualOperation(aAction) {
       actionAdd('check');
     }
     actionAdd('push;' + buttonLabels[pressedButtonIndex]);
+    }
     break;
   case 'prompt':
-    var result = prompts.prompt(window,
+    {
+    let inputMessage = {value: ''};
+    let result = prompts.prompt(window,
                                 title,
                                 description,
                                 inputMessage,
@@ -157,6 +164,7 @@ function captureActualOperation(aAction) {
       actionAdd('accept');
     } else {
       actionAdd('cancel');
+    }
     }
     break;
   case 'select':
