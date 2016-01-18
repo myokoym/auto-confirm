@@ -76,6 +76,7 @@ function captureActualOperation(aAction) {
                           .getService(Components.interfaces.nsIPromptService);
   var type = document.getElementById('type-field');
   log(type.value);
+
   var title = gMessages.getString('config.edit.capture.dialog.title');
   var description = gMessages.getString('config.edit.capture.dialog.description');
   var checkboxLabel = gMessages.getString('config.edit.capture.dialog.checkbox');
@@ -93,6 +94,7 @@ function captureActualOperation(aAction) {
                        description,
                        checkboxLabel,
                        checked);
+    log('checked: ' + checked);
     if (checked.value) {
       actionAdd('check');
     }
@@ -104,7 +106,8 @@ function captureActualOperation(aAction) {
                                       description,
                                       checkboxLabel,
                                       checked);
-    log(result);
+    log('result: ' + result);
+    log('checked: ' + checked);
     if (checked.value) {
       actionAdd('check');
     }
@@ -127,7 +130,8 @@ function captureActualOperation(aAction) {
                                                buttonLabels[2],
                                                null,
                                                checked);
-    log(pressedButtonIndex);
+    log('pressedButtonIndex:' + pressedButtonIndex);
+    log('checked: ' + checked);
     if (checked.value) {
       actionAdd('check');
     }
@@ -140,7 +144,9 @@ function captureActualOperation(aAction) {
                                 inputMessage,
                                 checkboxLabel,
                                 checked);
-    log(result);
+    log('result:' + result);
+    log('inputMessage: ' + inputMessage);
+    log('checked: ' + checked);
     if (inputMessage.value) {
       actionAdd('input;' + inputMessage.value);
     }
