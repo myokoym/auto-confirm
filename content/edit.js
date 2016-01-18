@@ -71,6 +71,10 @@ function captureActualOperation(aAction) {
   var description = gMessages.getString('config.edit.capture.dialog.description');
   var checkboxLabel = gMessages.getString('config.edit.capture.dialog.checkbox');
   var checked = {value: false};
+  var buttonLabels = [];
+  buttonLabels[0] = gMessages.getString('config.edit.capture.dialog.button.0');
+  buttonLabels[1] = gMessages.getString('config.edit.capture.dialog.button.1');
+  buttonLabels[2] = gMessages.getString('config.edit.capture.dialog.button.2');
 
   switch (type.value) {
   case 'alert':
@@ -101,8 +105,23 @@ function captureActualOperation(aAction) {
     }
     break;
   case 'confirmEx':
-    // TODO
-    //confirmEx();
+    var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+    var pressedButtonIndex = prompts.confirmEx(window,
+                                               title,
+                                               description,
+                                               flags,
+                                               buttonLabels[0],
+                                               buttonLabels[1],
+                                               buttonLabels[2],
+                                               null,
+                                               checked);
+    console.log(pressedButtonIndex);
+    if (checked.value) {
+      actionAdd('check');
+    }
+    actionAdd('push;' + buttonLabels[pressedButtonIndex]);
     break;
   case 'prompt':
     var result = prompt();
