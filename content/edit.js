@@ -83,7 +83,7 @@ function captureActualOperation(aAction) {
                          description,
                          checkboxLabel,
                          checked);
-      log('checked: ' + checked);
+      log('checked: ' + checked.value);
       if (checked.value) {
         actionAdd('check');
       }
@@ -98,7 +98,7 @@ function captureActualOperation(aAction) {
                                         checkboxLabel,
                                         checked);
       log('result: ' + result);
-      log('checked: ' + checked);
+      log('checked: ' + checked.value);
       if (checked.value) {
         actionAdd('check');
       }
@@ -128,7 +128,7 @@ function captureActualOperation(aAction) {
                                                  null,
                                                  checked);
       log('pressedButtonIndex:' + pressedButtonIndex);
-      log('checked: ' + checked);
+      log('checked: ' + checked.value);
       if (checked.value) {
         actionAdd('check');
       }
@@ -145,8 +145,8 @@ function captureActualOperation(aAction) {
                                   checkboxLabel,
                                   checked);
       log('result:' + result);
-      log('inputMessage: ' + inputMessage);
-      log('checked: ' + checked);
+      log('inputMessage: ' + inputMessage.value);
+      log('checked: ' + checked.value);
       if (inputMessage.value) {
         actionAdd('input;' + inputMessage.value);
       }
