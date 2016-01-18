@@ -4,18 +4,11 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-var BASE = 'extensions.auto-confirm@myokoym.net.';
-var { prefs } = Components.utils.import('resource://auto-confirm-resources/modules/lib/prefs.js', {});
+var { log } = Components.utils.import('resource://auto-confirm-resources/modules/log.js', {});
 
 var gRule;
 var gMessages;
 var gActions;
-
-function log(message) {
-  if (prefs.getPref(BASE + 'debug')) {
-    console.log("auto-confirm edit: " + message);
-  }
-}
 
 function init() {
   gRule = window.arguments[0] || {};

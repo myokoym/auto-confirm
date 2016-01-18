@@ -6,6 +6,7 @@
 
 var BASE = 'extensions.auto-confirm@myokoym.net.';
 var { prefs } = Components.utils.import('resource://auto-confirm-resources/modules/lib/prefs.js', {});
+var { log } = Components.utils.import('resource://auto-confirm-resources/modules/log.js', {});
 
 var gRules;
 
@@ -175,4 +176,5 @@ function isRuleDuplicated(aName, aRule) {
 function shutdown() {
   prefs.setPref(BASE + 'editing', false);
   Components.utils.unload('resource://auto-confirm-resources/modules/lib/prefs.js');
+  Components.utils.unload('resource://auto-confirm-resources/modules/log.js');
 }

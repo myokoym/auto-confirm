@@ -11,11 +11,7 @@ var prefs = require('lib/prefs').prefs;
     prefs.setDefaultPref(BASE + 'debug', false);
 }
 
-function log(message) {
-  if (prefs.getPref(BASE + 'debug')) {
-    console.log("auto-confirm: " + message);
-  }
-}
+var log = require('log').log;
 
 var generalUrls = [];
 var generalConfigs = [];
