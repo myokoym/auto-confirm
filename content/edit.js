@@ -85,86 +85,86 @@ function captureActualOperation(aAction) {
   switch (type.value) {
   case 'alert':
     {
-    prompts.alertCheck(window,
-                       title,
-                       description,
-                       checkboxLabel,
-                       checked);
-    log('checked: ' + checked);
-    if (checked.value) {
-      actionAdd('check');
-    }
-    actionAdd('accept');
+      prompts.alertCheck(window,
+                         title,
+                         description,
+                         checkboxLabel,
+                         checked);
+      log('checked: ' + checked);
+      if (checked.value) {
+        actionAdd('check');
+      }
+      actionAdd('accept');
     }
     break;
   case 'confirm':
     {
-    let result = prompts.confirmCheck(window,
-                                      title,
-                                      description,
-                                      checkboxLabel,
-                                      checked);
-    log('result: ' + result);
-    log('checked: ' + checked);
-    if (checked.value) {
-      actionAdd('check');
-    }
-    if (result) {
-      actionAdd('accept');
-    } else {
-      actionAdd('cancel');
-    }
+      let result = prompts.confirmCheck(window,
+                                        title,
+                                        description,
+                                        checkboxLabel,
+                                        checked);
+      log('result: ' + result);
+      log('checked: ' + checked);
+      if (checked.value) {
+        actionAdd('check');
+      }
+      if (result) {
+        actionAdd('accept');
+      } else {
+        actionAdd('cancel');
+      }
     }
     break;
   case 'confirmEx':
     {
-    let buttonLabels = [];
-    buttonLabels[0] = gMessages.getString('config.edit.capture.dialog.button.0');
-    buttonLabels[1] = gMessages.getString('config.edit.capture.dialog.button.1');
-    buttonLabels[2] = gMessages.getString('config.edit.capture.dialog.button.2');
-    let flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
-    let pressedButtonIndex = prompts.confirmEx(window,
-                                               title,
-                                               description,
-                                               flags,
-                                               buttonLabels[0],
-                                               buttonLabels[1],
-                                               buttonLabels[2],
-                                               null,
-                                               checked);
-    log('pressedButtonIndex:' + pressedButtonIndex);
-    log('checked: ' + checked);
-    if (checked.value) {
-      actionAdd('check');
-    }
-    actionAdd('push;' + buttonLabels[pressedButtonIndex]);
+      let buttonLabels = [];
+      buttonLabels[0] = gMessages.getString('config.edit.capture.dialog.button.0');
+      buttonLabels[1] = gMessages.getString('config.edit.capture.dialog.button.1');
+      buttonLabels[2] = gMessages.getString('config.edit.capture.dialog.button.2');
+      let flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                  prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                  prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING;
+      let pressedButtonIndex = prompts.confirmEx(window,
+                                                 title,
+                                                 description,
+                                                 flags,
+                                                 buttonLabels[0],
+                                                 buttonLabels[1],
+                                                 buttonLabels[2],
+                                                 null,
+                                                 checked);
+      log('pressedButtonIndex:' + pressedButtonIndex);
+      log('checked: ' + checked);
+      if (checked.value) {
+        actionAdd('check');
+      }
+      actionAdd('push;' + buttonLabels[pressedButtonIndex]);
     }
     break;
   case 'prompt':
     {
-    let inputMessage = {value: ''};
-    let result = prompts.prompt(window,
-                                title,
-                                description,
-                                inputMessage,
-                                checkboxLabel,
-                                checked);
-    log('result:' + result);
-    log('inputMessage: ' + inputMessage);
-    log('checked: ' + checked);
-    if (inputMessage.value) {
-      actionAdd('input;' + inputMessage.value);
-    }
-    if (checked.value) {
-      actionAdd('check');
-    }
-    if (result) {
-      actionAdd('accept');
-    } else {
-      actionAdd('cancel');
-    }
+      let inputMessage = {value: ''};
+      let result = prompts.prompt(window,
+                                  title,
+                                  description,
+                                  inputMessage,
+                                  checkboxLabel,
+                                  checked);
+      log('result:' + result);
+      log('inputMessage: ' + inputMessage);
+      log('checked: ' + checked);
+      if (inputMessage.value) {
+        actionAdd('input;' + inputMessage.value);
+      }
+      if (checked.value) {
+        actionAdd('check');
+      }
+      if (result) {
+        actionAdd('accept');
+      } else {
+        actionAdd('cancel');
+      }
     }
     break;
   case 'select':
