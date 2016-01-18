@@ -85,8 +85,15 @@ function captureActualOperation(aAction) {
     actionAdd('accept');
     break;
   case 'confirm':
-    var result = confirm();
+    var result = prompts.confirmCheck(window,
+                                      title,
+                                      description,
+                                      checkboxLabel,
+                                      checked);
     console.log(result);
+    if (checked.value) {
+      actionAdd('check');
+    }
     if (result) {
       actionAdd('accept');
     } else {
