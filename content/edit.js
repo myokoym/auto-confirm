@@ -62,6 +62,8 @@ function validateName() {
 function onGroupChanged() {
   var group = document.getElementById('group-field').value;
   document.documentElement.setAttribute('group-type', group);
+  var button = document.getElementById('capture-button');
+  button.disabled = (group !== 'common');
 }
 
 function captureActualOperation(aAction) {

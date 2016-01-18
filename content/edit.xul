@@ -106,6 +106,7 @@
     <hbox align="center">
       <caption label="&config.edit.actions.label;"/>
       <button label="&config.edit.capture.label;"
+              id="capture-button"
               oncommand="captureActualOperation();"/>
     </hbox>
     <richlistbox id="actions"
