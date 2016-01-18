@@ -63,12 +63,26 @@ function onGroupChanged() {
 }
 
 function captureActualOperation(aAction) {
+  var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                          .getService(Components.interfaces.nsIPromptService);
   var type = document.getElementById('type-field');
   console.log(type.value);
+  var title = gMessages.getString('config.edit.capture.dialog.title');
+  var description = gMessages.getString('config.edit.capture.dialog.description');
+  var checkboxLabel = gMessages.getString('config.edit.capture.dialog.checkbox');
+  var checked = {value: false};
+
   switch (type.value) {
   case 'alert':
-    alert();
-    actionAdd();
+    prompts.alertCheck(window,
+                       title,
+                       description,
+                       checkboxLabel,
+                       checked);
+    if (checked.value) {
+      actionAdd('check');
+    }
+    actionAdd('accept');
     break;
   case 'confirm':
     var result = confirm();
