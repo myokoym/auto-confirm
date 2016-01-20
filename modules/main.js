@@ -66,6 +66,8 @@ prefs.setPref(BASE + 'editing', false);
 
 load('lib/WindowManager');
 
+var TYPE_BROWSER = "navigator:browser";
+
 var global = this;
 function handleWindow(aWindow)
 {
@@ -83,6 +85,9 @@ function handleWindow(aWindow)
     return;
   } else {
     log("generalWindow");
+    if (doc.documentElement.getAttribute("windowtype") == TYPE_BROWSER) {
+      startObserveTabModalDialogs(aWindow);
+    }
     aWindow.addEventListener('load', function onload() {
       aWindow.removeEventListener('load', onload);
       handleGeneralWindow(aWindow);
@@ -311,10 +316,47 @@ function findVisibleElementByLabel(aWindow, text) {
   return null;
 }
 
+var tabModalDialogObservers = new WeakMap();
+
+function handleMutationsOnBrowserWindow(aMutations, aObserver) {
+  aMutations.forEach(function(aMutation) {
+    if (aMutation.type !== "childList") {
+      return;
+    }
+    Array.forEach(aMutation.addedNodes, function(aNode) {
+      if (aNode.localName !== "tabmodalprompt") {
+        return;
+      }
+      log("handle new tabmodalprompt");
+    });
+  });
+}
+
+function startObserveTabModalDialogs(aWindow) {
+  var MutationObserver = aWindow.MutationObserver;
+  var observer = new MutationObserver(handleMutationsOnBrowserWindow);
+  observer.observe(aWindow.document.documentElement, {
+    childList: true,
+    subtree:   true
+  });
+  tabModalDialogObservers.add(aWindow, observer);
+}
+
+function endObserveTabModalDialogs(aWindow) {
+  var observer = tabModalDialogObservers.get(aWindow);
+  if (observer) {
+    observer.disconnect();
+    tabModalDialogObservers.delete(aWindow);
+  }
+}
+
+WindowManager.getWindows(null).forEach(handleWindow);
 WindowManager.addHandler(handleWindow);
 
 function shutdown()
 {
+  WindowManager.getWindows(null).forEach(endObserveTabModalDialogs);
+  tabModalDialogObservers = undefined;
   prefs.setPref(BASE + 'editing', false)
   prefs.removePrefListener(listener);
   WindowManager = undefined;
