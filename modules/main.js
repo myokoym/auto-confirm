@@ -348,7 +348,7 @@ function startObserveTabModalDialogs(aWindow) {
     childList: true,
     subtree:   true
   });
-  tabModalDialogObservers.add(aWindow, observer);
+  tabModalDialogObservers.set(aWindow, observer);
 }
 
 function endObserveTabModalDialogs(aWindow) {
