@@ -97,10 +97,13 @@ function handleWindow(aWindow)
 
 }
 
-function handleCommonDialog(aWindow)
+function handleCommonDialog(aWindow, aRootElement)
 {
   var doc = aWindow.document;
-  var args = aWindow.args;
+  var root = aRootElement /* for tabmodaldialog */ ||
+               doc.documentElement /* for common dialog */;
+  var args = root.args /* for tabmodaldialog */ ||
+               aWindow.args /* for common dialog */;
   log("args: " + JSON.stringify(args));
   var configs = prefs.getChildren(BASE + 'common');
   log("commonDialog: " + configs);
@@ -120,10 +123,10 @@ function handleCommonDialog(aWindow)
     log("config: " + config);
     let action = prefs.getPref(config + '.action');
     if (action)
-      processAction(aWindow, action);
+      processAction(aWindow, action, aRootElement);
     let actions = prefs.getPref(config + '.actions');
     if (actions)
-      processActions(aWindow, actions);
+      processActions(aWindow, actions, aRootElement);
   }
   if (!matched)
     log("no match");
@@ -170,19 +173,23 @@ function handleGeneralWindow(aWindow)
   }
 }
 
-function processActions(aWindow, aActions)
+function processActions(aWindow, aActions, aRootElement)
 {
   var doc = aWindow.document;
   log("actions: " + aActions);
   for (let action of JSON.parse(aActions)) {
     log("action: " + action);
-    processAction(aWindow, action);
+    processAction(aWindow, action, aRootElement);
   }
 }
 
-function processAction(aWindow, aAction)
+function processAction(aWindow, aAction, aRootElement)
 {
   var doc = aWindow.document;
+  var root = aRootElement /* for tabmodaldialog */ ||
+               doc.documentElement /* for chrome window */;
+  var args = root.args /* for tabmodaldialog */ ||
+               aWindow.args /* for common dialog */;
   log("action: " + aAction);
   var actions = aAction.match(/^([^;]+);?(.*)/);
   if (actions === null)
@@ -191,17 +198,17 @@ function processAction(aWindow, aAction)
   var value = actions[2];
   switch (action) {
   case 'accept':
-    doc.documentElement.acceptDialog();
+    root.acceptDialog();
     log("accept");
     return;
   case 'cancel':
-    doc.documentElement.cancelDialog();
+    root.cancelDialog();
     log("cancel");
     return;
   case 'click':
     log("click");
     {
-      let element = findVisibleElementByLabel(aWindow, value);
+      let element = findVisibleElementByLabel(root, value);
       log(element);
       if (typeof element.click === "function") {
         log("element.click(): ready");
@@ -214,7 +221,7 @@ function processAction(aWindow, aAction)
     }
     return;
   case 'push':
-    var buttons = doc.documentElement._buttons;
+    var buttons = root._buttons;
     for (let dlgtype in buttons) {
       var button = buttons[dlgtype];
       log("label: " + button.label);
@@ -227,35 +234,35 @@ function processAction(aWindow, aAction)
     log("push: no match");
     return;
   case 'input':
-    doc.getElementById("loginTextbox").value = value;
+    root.getElementById("loginTextbox").value = value;
     log("input");
     return;
   case 'check':
     log("check");
     if (value) {
-      let element = findVisibleElementByLabel(aWindow, value);
+      let element = findVisibleElementByLabel(root, value);
       log("  element: " + element);
       log("  element.checked: ready");
       element.checked = true;
       log("  element.checked: done");
     } else {
       // For commonDialog
-      doc.getElementById("checkbox").checked = true;
-      aWindow.args.checked = true;
+      root.getElementById("checkbox").checked = true;
+      args.checked = true;
     }
     return;
   case 'uncheck':
     log("uncheck");
     if (value) {
-      let element = findVisibleElementByLabel(aWindow, value);
+      let element = findVisibleElementByLabel(root, value);
       log(element);
       log("  element.checked: ready");
       element.checked = false;
       log("  element.checked: done");
     } else {
       // For commonDialog
-      doc.getElementById("checkbox").checked = false;
-      aWindow.args.checked = false;
+      root.getElementById("checkbox").checked = false;
+      args.checked = false;
     }
     return;
   default:
@@ -268,7 +275,7 @@ function matchedWindow(aWindow, aConfig) {
   log("matchedWindow");
   let textMatcher = aConfig.text;
   log("  textMatcher: " + textMatcher);
-  if (textMatcher && !findVisibleElementByLabel(aWindow, textMatcher))
+  if (textMatcher && !findVisibleElementByLabel(aWindow.document.documentElement, textMatcher))
     return false;
   let titleMatcher = aConfig.title;
   log("  titleMatcher: " + titleMatcher);
@@ -280,7 +287,7 @@ function matchedWindow(aWindow, aConfig) {
   return  true;
 }
 
-function findVisibleElementByLabel(aWindow, text) {
+function findVisibleElementByLabel(aRootElement, text) {
   log("findVisibleElementByLabel");
   if (text.indexOf('"') !== -1) {
     text = 'concat("' + text.replace(/"/g, '", \'"\', "') + '")';
@@ -292,11 +299,13 @@ function findVisibleElementByLabel(aWindow, text) {
                    '/descendant::*[contains(text(), ' + text + ')]';
   log("  expression: " + expression);
   try {
-  var elements = aWindow.document.evaluate(
+  var doc = aRootElement.ownerDocument;
+  var global = doc.defaultView;
+  var elements = doc.evaluate(
                    expression,
-                   aWindow.document,
+                   aRootElement,
                    null,
-                   aWindow.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+                   global.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
                    null
                  );
   } catch(e) {
