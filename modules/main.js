@@ -102,8 +102,13 @@ function handleCommonDialog(aWindow, aRootElement)
   var doc = aWindow.document;
   var root = aRootElement /* for tabmodaldialog */ ||
                doc.documentElement /* for common dialog */;
-  var args = root.args /* for tabmodaldialog */ ||
-               aWindow.args /* for common dialog */;
+  var commonDialog = root.Dialog /* for tabmodaldialog */ ||
+                       aWindow.Dialog /* for common dialog */;
+  if (!commonDialog) {
+    log("missing common dialog");
+    return;
+  }
+  var args = commonDialog.args;
   log("args: " + JSON.stringify(args));
   var configs = prefs.getChildren(BASE + 'common');
   log("commonDialog: " + configs);
@@ -188,8 +193,8 @@ function processAction(aWindow, aAction, aRootElement)
   var doc = aWindow.document;
   var root = aRootElement /* for tabmodaldialog */ ||
                doc.documentElement /* for chrome window */;
-  var args = root.args /* for tabmodaldialog */ ||
-               aWindow.args /* for common dialog */;
+  var commonDialog = root.Dialog /* for tabmodaldialog */ ||
+                       aWindow.Dialog /* for common dialog */;
   log("action: " + aAction);
   var actions = aAction.match(/^([^;]+);?(.*)/);
   if (actions === null)
@@ -198,11 +203,11 @@ function processAction(aWindow, aAction, aRootElement)
   var value = actions[2];
   switch (action) {
   case 'accept':
-    root.acceptDialog();
+    commonDialog.onButton0();
     log("accept");
     return;
   case 'cancel':
-    root.cancelDialog();
+    commonDialog.onButton1();
     log("cancel");
     return;
   case 'click':
@@ -221,9 +226,14 @@ function processAction(aWindow, aAction, aRootElement)
     }
     return;
   case 'push':
-    var buttons = root._buttons;
-    for (let dlgtype in buttons) {
-      var button = buttons[dlgtype];
+    var buttons = [
+      commonDialog.ui.button0,
+      commonDialog.ui.button1,
+      commonDialog.ui.button2,
+      commonDialog.ui.button3
+    ];
+    for (let index in buttons) {
+      var button = buttons[index];
       log("label: " + button.label);
       if (button.label.match(value)) {
         button.click();
@@ -234,7 +244,7 @@ function processAction(aWindow, aAction, aRootElement)
     log("push: no match");
     return;
   case 'input':
-    root.getElementById("loginTextbox").value = value;
+    commonDialog.ui.loginTextbox.value = value;
     log("input");
     return;
   case 'check':
@@ -247,8 +257,8 @@ function processAction(aWindow, aAction, aRootElement)
       log("  element.checked: done");
     } else {
       // For commonDialog
-      root.getElementById("checkbox").checked = true;
-      args.checked = true;
+      commonDialog.ui.checkbox.checked = true;
+      commonDialog.args.checked = true;
     }
     return;
   case 'uncheck':
@@ -261,8 +271,8 @@ function processAction(aWindow, aAction, aRootElement)
       log("  element.checked: done");
     } else {
       // For commonDialog
-      root.getElementById("checkbox").checked = false;
-      args.checked = false;
+      commonDialog.ui.checkbox.checked = true;
+      commonDialog.args.checked = false;
     }
     return;
   default:
@@ -338,6 +348,11 @@ function handleMutationsOnBrowserWindow(aMutations, aObserver) {
         return;
       }
       log("handle new tabmodalprompt");
+      var window = aNode.ownerDocument.defaultView;
+      window.setTimeout(function() {
+        // operate the dialog after successfully initialized
+        handleCommonDialog(window, aNode);
+      }, 0);
     });
   });
 }
