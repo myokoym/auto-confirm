@@ -365,6 +365,10 @@ function startObserveTabModalDialogs(aWindow) {
     subtree:   true
   });
   tabModalDialogObservers.set(aWindow, observer);
+  aWindow.addEventListener("unload", function onunload() {
+    aWindow.removeEventListener("unload", onunload);
+    endObserveTabModalDialogs(aWindow);
+  });
 }
 
 function endObserveTabModalDialogs(aWindow) {
