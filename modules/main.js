@@ -329,7 +329,8 @@ var tabModalDialogObservers = new WeakMap();
 
 function handleMutationsOnBrowserWindow(aMutations, aObserver) {
   aMutations.forEach(function(aMutation) {
-    if (aMutation.type !== "childList") {
+    if (aMutation.type !== "childList" ||
+        !aMutation.addedNodes) {
       return;
     }
     Array.forEach(aMutation.addedNodes, function(aNode) {
