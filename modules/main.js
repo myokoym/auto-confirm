@@ -85,7 +85,7 @@ function handleWindow(aWindow)
     return;
   } else {
     log("generalWindow");
-    if (doc.documentElement.getAttribute("windowtype") == TYPE_BROWSER) {
+    if (doc.documentElement.getAttribute("windowtype") === TYPE_BROWSER) {
       startObserveTabModalDialogs(aWindow);
     }
     aWindow.addEventListener('load', function onload() {
