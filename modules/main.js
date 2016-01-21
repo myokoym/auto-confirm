@@ -203,11 +203,11 @@ function processAction(aWindow, aAction, aRootElement)
   var value = actions[2];
   switch (action) {
   case 'accept':
-    commonDialog.onButton0();
+    commonDialog.ui.button0.click();
     log("accept");
     return;
   case 'cancel':
-    commonDialog.onButton1();
+    commonDialog.ui.button1.click();
     log("cancel");
     return;
   case 'click':
