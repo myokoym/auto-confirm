@@ -204,13 +204,13 @@ function processAction(aWindow, aAction, aRootElement)
   switch (action) {
   case 'accept':
     if (commonDialog) {
-    commonDialog.ui.button0.click();
+      commonDialog.ui.button0.click();
     }
     log("accept");
     return;
   case 'cancel':
     if (commonDialog) {
-    commonDialog.ui.button1.click();
+      commonDialog.ui.button1.click();
     }
     log("cancel");
     return;
@@ -250,7 +250,7 @@ function processAction(aWindow, aAction, aRootElement)
     return;
   case 'input':
     if (commonDialog) {
-    commonDialog.ui.loginTextbox.value = value;
+      commonDialog.ui.loginTextbox.value = value;
     }
     log("input");
     return;
