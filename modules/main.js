@@ -236,7 +236,7 @@ function processAction(aWindow, aAction, aRootElement)
       buttons.push(commonDialog.ui.button1);
       buttons.push(commonDialog.ui.button2);
       buttons.push(commonDialog.ui.button3);
-    ];
+    }
     for (let index in buttons) {
       var button = buttons[index];
       log("label: " + button.label);
