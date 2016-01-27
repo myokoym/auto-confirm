@@ -203,11 +203,15 @@ function processAction(aWindow, aAction, aRootElement)
   var value = actions[2];
   switch (action) {
   case 'accept':
+    if (commonDialog) {
     commonDialog.ui.button0.click();
+    }
     log("accept");
     return;
   case 'cancel':
+    if (commonDialog) {
     commonDialog.ui.button1.click();
+    }
     log("cancel");
     return;
   case 'click':
@@ -226,11 +230,12 @@ function processAction(aWindow, aAction, aRootElement)
     }
     return;
   case 'push':
-    var buttons = [
-      commonDialog.ui.button0,
-      commonDialog.ui.button1,
-      commonDialog.ui.button2,
-      commonDialog.ui.button3
+    var buttons = [];
+    if (commonDialog) {
+      buttons.push(commonDialog.ui.button0);
+      buttons.push(commonDialog.ui.button1);
+      buttons.push(commonDialog.ui.button2);
+      buttons.push(commonDialog.ui.button3);
     ];
     for (let index in buttons) {
       var button = buttons[index];
@@ -244,7 +249,9 @@ function processAction(aWindow, aAction, aRootElement)
     log("push: no match");
     return;
   case 'input':
+    if (commonDialog) {
     commonDialog.ui.loginTextbox.value = value;
+    }
     log("input");
     return;
   case 'check':
@@ -255,8 +262,7 @@ function processAction(aWindow, aAction, aRootElement)
       log("  element.checked: ready");
       element.checked = true;
       log("  element.checked: done");
-    } else {
-      // For commonDialog
+    } else if (commonDialog) {
       commonDialog.ui.checkbox.checked = true;
       commonDialog.args.checked = true;
     }
@@ -269,8 +275,7 @@ function processAction(aWindow, aAction, aRootElement)
       log("  element.checked: ready");
       element.checked = false;
       log("  element.checked: done");
-    } else {
-      // For commonDialog
+    } else if (commonDialog) {
       commonDialog.ui.checkbox.checked = true;
       commonDialog.args.checked = false;
     }
