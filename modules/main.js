@@ -203,16 +203,24 @@ function processAction(aWindow, aAction, aRootElement)
   var value = actions[2];
   switch (action) {
   case 'accept':
+    log("accept");
     if (commonDialog) {
       commonDialog.ui.button0.click();
+    } else if (typeof root.acceptDialog == "function") {
+      root.acceptDialog();
+    } else {
+      Cu.reportError(new Error("We don't know how to accept "+root));
     }
-    log("accept");
     return;
   case 'cancel':
+    log("cancel");
     if (commonDialog) {
       commonDialog.ui.button1.click();
+    } else if (typeof root.cancelDialog == "function") {
+      root.cancelDialog();
+    } else {
+      Cu.reportError(new Error("We don't know how to cancel "+root));
     }
-    log("cancel");
     return;
   case 'click':
     log("click");
@@ -230,15 +238,22 @@ function processAction(aWindow, aAction, aRootElement)
     }
     return;
   case 'push':
-    var buttons = [];
+    var buttons;
     if (commonDialog) {
-      buttons.push(commonDialog.ui.button0);
-      buttons.push(commonDialog.ui.button1);
-      buttons.push(commonDialog.ui.button2);
-      buttons.push(commonDialog.ui.button3);
+      buttons = {
+        accept: commonDialog.ui.button0,
+        cancel: commonDialog.ui.button1,
+        extra1: commonDialog.ui.button2,
+        extra2: commonDialog.ui.button3
+      };
+    } else if (root._buttons) {
+      buttons = root._buttons;
+    } else {
+      Cu.reportError(new Error("We cannot detect pushable buttons in "+root));
+      return;
     }
-    for (let index in buttons) {
-      var button = buttons[index];
+    for (let type in buttons) {
+      var button = buttons[type];
       log("label: " + button.label);
       if (button.label.match(value)) {
         button.click();
@@ -251,6 +266,8 @@ function processAction(aWindow, aAction, aRootElement)
   case 'input':
     if (commonDialog) {
       commonDialog.ui.loginTextbox.value = value;
+    } else {
+      Cu.reportError(new Error("We don't know how to input text at "+root));
     }
     log("input");
     return;
@@ -265,6 +282,8 @@ function processAction(aWindow, aAction, aRootElement)
     } else if (commonDialog) {
       commonDialog.ui.checkbox.checked = true;
       commonDialog.args.checked = true;
+    } else {
+      Cu.reportError(new Error("We don't know how to check checkbox in "+root));
     }
     return;
   case 'uncheck':
@@ -278,6 +297,8 @@ function processAction(aWindow, aAction, aRootElement)
     } else if (commonDialog) {
       commonDialog.ui.checkbox.checked = true;
       commonDialog.args.checked = false;
+    } else {
+      Cu.reportError(new Error("We don't know how to uncheck checkbox in "+root));
     }
     return;
   default:
