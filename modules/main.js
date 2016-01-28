@@ -188,6 +188,18 @@ function processActions(aWindow, aActions, aRootElement)
   }
 }
 
+function describeElement(aElement)
+{
+  var description = [aElement.localName];
+  if (aElement.id) {
+    description.push("#" + aElement.id);
+  }
+  if (aElement.className) {
+    description.push("." + aElement.className.replace(/\s+/g, '.'));
+  }
+  return description.join("");
+}
+
 function processAction(aWindow, aAction, aRootElement)
 {
   var doc = aWindow.document;
@@ -209,7 +221,7 @@ function processAction(aWindow, aAction, aRootElement)
     } else if (typeof root.acceptDialog == "function") {
       root.acceptDialog();
     } else {
-      Cu.reportError(new Error("We don't know how to accept "+root));
+      Cu.reportError(new Error("We don't know how to accept "+describeElement(root)));
     }
     return;
   case 'cancel':
@@ -219,7 +231,7 @@ function processAction(aWindow, aAction, aRootElement)
     } else if (typeof root.cancelDialog == "function") {
       root.cancelDialog();
     } else {
-      Cu.reportError(new Error("We don't know how to cancel "+root));
+      Cu.reportError(new Error("We don't know how to cancel "+describeElement(root)));
     }
     return;
   case 'click':
@@ -233,7 +245,7 @@ function processAction(aWindow, aAction, aRootElement)
         log("element.click(): done");
       } else {
         log("element is not clickable");
-        Cu.reportError(new Error("found element is not clickable."));
+        Cu.reportError(new Error("found element "+describeElement(element)+" is not clickable."));
       }
     }
     return;
@@ -249,7 +261,7 @@ function processAction(aWindow, aAction, aRootElement)
     } else if (root._buttons) {
       buttons = root._buttons;
     } else {
-      Cu.reportError(new Error("We cannot detect pushable buttons in "+root));
+      Cu.reportError(new Error("We cannot detect pushable buttons in "+describeElement(root)));
       return;
     }
     for (let type in buttons) {
@@ -267,7 +279,7 @@ function processAction(aWindow, aAction, aRootElement)
     if (commonDialog) {
       commonDialog.ui.loginTextbox.value = value;
     } else {
-      Cu.reportError(new Error("We don't know how to input text at "+root));
+      Cu.reportError(new Error("We don't know how to input text at "+describeElement(root)));
     }
     log("input");
     return;
@@ -283,7 +295,7 @@ function processAction(aWindow, aAction, aRootElement)
       commonDialog.ui.checkbox.checked = true;
       commonDialog.args.checked = true;
     } else {
-      Cu.reportError(new Error("We don't know how to check checkbox in "+root));
+      Cu.reportError(new Error("We don't know how to check checkbox in "+describeElement(root)));
     }
     return;
   case 'uncheck':
@@ -298,7 +310,7 @@ function processAction(aWindow, aAction, aRootElement)
       commonDialog.ui.checkbox.checked = true;
       commonDialog.args.checked = false;
     } else {
-      Cu.reportError(new Error("We don't know how to uncheck checkbox in "+root));
+      Cu.reportError(new Error("We don't know how to uncheck checkbox in "+describeElement(root)));
     }
     return;
   default:
