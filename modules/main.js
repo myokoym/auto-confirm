@@ -345,12 +345,16 @@ function findVisibleElementByLabel(aRootElement, text) {
   var expression = '/descendant::*[contains(@label, ' + text + ')] | ' +
                    '/descendant::*[local-name()="label" or local-name()="description"][contains(@value, ' + text + ')] | ' +
                    '/descendant::*[contains(text(), ' + text + ')]';
-  log("  expression: " + expression);
+  return findVisibleElementByExpression(aRootElement, expression);
+}
+
+function findVisibleElementByExpression(aRootElement, aExpression) {
+  log("  expression: " + aExpression);
   try {
   var doc = aRootElement.ownerDocument;
   var global = doc.defaultView;
   var elements = doc.evaluate(
-                   expression,
+                   aExpression,
                    aRootElement,
                    null,
                    global.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
