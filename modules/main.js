@@ -237,7 +237,7 @@ function processAction(aWindow, aAction, aRootElement)
   case 'click':
     log("click");
     {
-      let element = findVisibleElementByLabel(root, value);
+      let element = findVisibleElement(root, value);
       log(element);
       if (typeof element.click === "function") {
         log("element.click(): ready");
@@ -286,7 +286,7 @@ function processAction(aWindow, aAction, aRootElement)
   case 'check':
     log("check");
     if (value) {
-      let element = findVisibleElementByLabel(root, value);
+      let element = findVisibleElement(root, value);
       log("  element: " + element);
       log("  element.checked: ready");
       element.checked = true;
@@ -301,7 +301,7 @@ function processAction(aWindow, aAction, aRootElement)
   case 'uncheck':
     log("uncheck");
     if (value) {
-      let element = findVisibleElementByLabel(root, value);
+      let element = findVisibleElement(root, value);
       log(element);
       log("  element.checked: ready");
       element.checked = false;
@@ -323,7 +323,7 @@ function matchedWindow(aWindow, aConfig) {
   log("matchedWindow");
   let textMatcher = aConfig.text;
   log("  textMatcher: " + textMatcher);
-  if (textMatcher && !findVisibleElementByLabel(aWindow.document.documentElement, textMatcher))
+  if (textMatcher && !findVisibleElement(aWindow.document.documentElement, textMatcher))
     return false;
   let titleMatcher = aConfig.title;
   log("  titleMatcher: " + titleMatcher);
@@ -333,6 +333,21 @@ function matchedWindow(aWindow, aConfig) {
 
   log("  match");
   return  true;
+}
+
+function findVisibleElement(aRootElement, aText) {
+  var ids = aText.match(/^id:(.+)/);
+  log("ids: " + ids);
+  if (ids) {
+    var element = findVisibleElementById(aRootElement, ids[1]);
+    if (element) {
+      return element;
+    } else {
+      return findVisibleElementByLabel(aRootElement, aText);
+    }
+  } else {
+    return findVisibleElementByLabel(aRootElement, aText);
+  }
 }
 
 function findVisibleElementById(aRootElement, aText) {
