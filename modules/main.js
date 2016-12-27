@@ -335,13 +335,24 @@ function matchedWindow(aWindow, aConfig) {
   return  true;
 }
 
-function findVisibleElementByLabel(aRootElement, aText) {
-  log("findVisibleElementByLabel");
+function findVisibleElementById(aRootElement, aText) {
+  log("findVisibleElementById");
   var text;
   if (aText.indexOf('"') !== -1) {
     text = 'concat("' + aText.replace(/"/g, '", \'"\', "') + '")';
   } else {
     text = '"' + aText + '"';
+  }
+  var expression = '/descendant::*[contains(@id, ' + text + ')]';
+  return findVisibleElementByExpression(aRootElement, expression);
+}
+
+function findVisibleElementByLabel(aRootElement, aText) {
+  log("findVisibleElementByLabel");
+  if (aText.indexOf('"') !== -1) {
+    var text = 'concat("' + aText.replace(/"/g, '", \'"\', "') + '")';
+  } else {
+    var text = '"' + aText + '"';
   }
   var expression = '/descendant::*[contains(@label, ' + text + ')] | ' +
                    '/descendant::*[local-name()="label" or local-name()="description"][contains(@value, ' + text + ')] | ' +
